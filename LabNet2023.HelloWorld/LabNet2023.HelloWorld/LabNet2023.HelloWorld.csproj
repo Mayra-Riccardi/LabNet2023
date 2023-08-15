@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{94178B8D-0A68-4DD3-9A9E-F98AC56616F1}</ProjectGuid>
+    <ProjectGuid>{A1078526-2DED-44AA-A450-55EB038E4C49}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>LabNet2023_HelloWorld</RootNamespace>
-    <AssemblyName>LabNet2023-HelloWorld</AssemblyName>
+    <RootNamespace>LabNet2023.HelloWorld</RootNamespace>
+    <AssemblyName>LabNet2023.HelloWorld</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

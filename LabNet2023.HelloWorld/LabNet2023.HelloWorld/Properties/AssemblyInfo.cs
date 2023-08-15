@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada a un ensamblado.
-[assembly: AssemblyTitle("LabNet2023-HelloWorld")]
+[assembly: AssemblyTitle("LabNet2023.HelloWorld")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HP")]
-[assembly: AssemblyProduct("LabNet2023-HelloWorld")]
+[assembly: AssemblyProduct("LabNet2023.HelloWorld")]
 [assembly: AssemblyCopyright("Copyright © HP 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // El siguiente GUID sirve como id. de typelib si este proyecto se expone a COM.
-[assembly: Guid("94178b8d-0a68-4dd3-9a9e-f98ac56616f1")]
+[assembly: Guid("a1078526-2ded-44aa-a450-55eb038e4c49")]
 
 // La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //
