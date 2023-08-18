@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Practica01
 {
-    internal class Taxi : TransportePublico
+    public class Taxi : TransportePublico
     {
         public Taxi(int cantPasajeros) : base(cantPasajeros)
         {
