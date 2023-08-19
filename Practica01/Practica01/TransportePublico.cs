@@ -14,7 +14,7 @@ namespace Practica01
             Pasajeros = cantPasajeros;//le damos el valor a traves del constructor, pasa por el constructor y se la da a la propiedad un valor
         }
 
-        protected internal int Pasajeros { get; set; }//propiedad de tipo entera, publica
+        protected internal int Pasajeros { get; set; }//propiedad de tipo entera privada, o protegida
 
         public abstract string Avanzar();
 
