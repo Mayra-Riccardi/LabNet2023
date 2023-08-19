@@ -24,6 +24,7 @@ namespace Practica01
 
                     Omnibus omnibus = new Omnibus(cantPasajerosOmnibus);
                     transportes.Add(omnibus);
+                    
                 }
                 catch (FormatException)
                 {
@@ -42,7 +43,7 @@ namespace Practica01
                 try
                 {
                     int cantPasajerosTaxi;
-                    Console.WriteLine($"Ingrese la cantidad de pasajeros con la que viaja el Taxi número {i + 5}: ");
+                    Console.WriteLine($"Ingrese la cantidad de pasajeros con la que viaja el Taxi número {i}: ");
                     cantPasajerosTaxi = int.Parse(Console.ReadLine());
 
                     if (cantPasajerosTaxi > 5 || cantPasajerosTaxi < 1)
@@ -66,26 +67,33 @@ namespace Practica01
             }
 
             Console.WriteLine("La cantidad de pasajeros que viaja en cada transporte es: ");
+
+            int contadorOmnibus = 1;
+            int contadorTaxi = 1;
+
             foreach (var transporte in transportes)
             {
                 if (transporte is Omnibus)
                 {
                     var omnibus = transporte as Omnibus;
                     int pasajerosRestantes = omnibus.Pasajeros - 3;
-                    if (pasajerosRestantes <= 3)
+                    if (pasajerosRestantes < 1)
                     {
-                        Console.WriteLine($"El Omnibus número {transportes.IndexOf(transporte) + 1} {omnibus.Avanzar()}, viaja con {omnibus.Pasajeros} pasajeros. {omnibus.Detenerse()}, se bajan todos y continúa vacío.");
+                        Console.WriteLine($"El Omnibus número {contadorOmnibus} {omnibus.Avanzar()}, viaja con {omnibus.Pasajeros} pasajeros. {omnibus.Detenerse()}, se bajan todos y continúa vacío.");
                     }
                     else
                     {
-                        Console.WriteLine($"El Omnibus número {transportes.IndexOf(transporte) + 1} {omnibus.Avanzar()}, viaja con {omnibus.Pasajeros} pasajeros. {omnibus.Detenerse()}, se bajan 3 pasajeros, quedan {pasajerosRestantes}.");
+                        Console.WriteLine($"El Omnibus número {contadorOmnibus} {omnibus.Avanzar()}, viaja con {omnibus.Pasajeros} pasajeros. {omnibus.Detenerse()}, se bajan 3 pasajeros, quedan {pasajerosRestantes}.");
                     }
+                    contadorOmnibus++;
                 }
                 else if (transporte is Taxi)
                 {
                     var taxi = transporte as Taxi;
-                    Console.WriteLine($"El Taxi número {transportes.IndexOf(transporte) + 1} {taxi.Avanzar()}, viaja con {taxi.Pasajeros} pasajeros. {taxi.Detenerse()}, se bajan todos sus pasajeros.");
+                    Console.WriteLine($"El Taxi número {contadorTaxi} {taxi.Avanzar()}, viaja con {taxi.Pasajeros} pasajeros. {taxi.Detenerse()}, se bajan todos sus pasajeros.");
+                    contadorTaxi++;
                 }
+                
             }
 
                 Console.ReadLine();
