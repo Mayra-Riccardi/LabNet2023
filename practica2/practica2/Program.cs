@@ -18,16 +18,18 @@ namespace practica2
                 Console.WriteLine("Elija una operacion a realizar:");
                 Console.WriteLine("1. Division por cero");
                 Console.WriteLine("2. Division de dos numeros");
+                Console.WriteLine("3. Ejercicio tres");
+                Console.WriteLine("4. Ejercicio cuatro");
 
                 string entrada = Console.ReadLine();
 
-                if (int.TryParse(entrada, out eleccion) && (eleccion == 1 || eleccion == 2))
+                if (int.TryParse(entrada, out eleccion) && (eleccion == 1 || eleccion == 2 || eleccion == 3) || eleccion == 4)
                 {
                     entradaValida = true;
                 }
                 else
                 {
-                    Console.WriteLine("El valor que has ingresado no es valido, recorda que debes ingresar 1 o 2. Intente nuevamente.");
+                    Console.WriteLine("El valor que has ingresado no es valido, recorda que debes ingresar una opcion entre 1 y 4. Intente nuevamente.");
                 }
             }
 
@@ -74,6 +76,35 @@ namespace practica2
                     {
                         Console.WriteLine("Operacion finalizada!");
                     }
+                    break;
+                case 3:
+                    try
+                    {
+                        Logic.MetodoConExcepcion();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Mensaje de excepción: {ex.Message}");
+                        Console.WriteLine($"Tipo de excepción: {ex.GetType().Name}");
+
+                    }
+                    finally {
+                        Console.WriteLine("Operacion completada");
+                    };
+                    break;
+                case 4:
+                    try 
+                    {
+                        Logic.MetodoCustomException();
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Nuestro CustomException capturado");
+                    }
+                    finally
+                    {
+                        Console.WriteLine("Operacion completada");
+                    };
                     break;
             }
 
