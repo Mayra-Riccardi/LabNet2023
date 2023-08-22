@@ -8,7 +8,7 @@ namespace practica2
 {
     public class CustomException : Exception
     {
-        public CustomException() : base("Mensaje de error Custon Exception") 
+        public CustomException(string message) : base($"Custom Exception: {message}") 
         {
 
         }

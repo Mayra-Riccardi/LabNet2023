@@ -15,7 +15,7 @@ namespace practica2
 
         public static void MetodoCustomException()
         {
-            throw new CustomException();
+            throw new CustomException("Nuestro CustomException capturado");
         }
     }
 }

@@ -16,8 +16,8 @@ namespace practica2
             while (!entradaValida)
             {
                 Console.WriteLine("Elija una operacion a realizar:");
-                Console.WriteLine("1. Division por cero");
-                Console.WriteLine("2. Division de dos numeros");
+                Console.WriteLine("1. Division por cero - Ejercicio 1");
+                Console.WriteLine("2. Division de dos numeros - Ejercicio 2");
                 Console.WriteLine("3. Ejercicio tres");
                 Console.WriteLine("4. Ejercicio cuatro");
 
@@ -97,9 +97,10 @@ namespace practica2
                     {
                         Logic.MetodoCustomException();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        Console.WriteLine("Nuestro CustomException capturado");
+                        Console.WriteLine($"Mensaje de excepción: {ex.Message}");
+                        Console.WriteLine($"Tipo de excepción: {ex.GetType().Name}");
                     }
                     finally
                     {
