@@ -12,5 +12,10 @@ namespace practica2
         {
 
         }
+
+        public CustomException() : base("Mensaje inventado")
+        {
+            
+        }
     }
 }

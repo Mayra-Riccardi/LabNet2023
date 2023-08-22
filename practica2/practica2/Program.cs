@@ -18,8 +18,8 @@ namespace practica2
                 Console.WriteLine("Elija una operacion a realizar:");
                 Console.WriteLine("1. Division por cero - Ejercicio 1");
                 Console.WriteLine("2. Division de dos numeros - Ejercicio 2");
-                Console.WriteLine("3. Ejercicio tres");
-                Console.WriteLine("4. Ejercicio cuatro");
+                Console.WriteLine("3. Logic Exception - Ejercicio 3");
+                Console.WriteLine("4. Logic CustomException - Ejercicio 4");
 
                 string entrada = Console.ReadLine();
 
@@ -43,10 +43,11 @@ namespace practica2
 
                         Calculadora.DivisionPorCero(numero, 0);
                     }
-                    catch (DivideByZeroException ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine($"Hubo una excepcion: {ex.Message}");
                     }
+
                     finally
                     {
                         Console.WriteLine("Operacion finalizada!");
@@ -61,16 +62,16 @@ namespace practica2
                         Console.WriteLine("Ingresa el divisor: ");
                         int divisor = int.Parse(Console.ReadLine());
 
-                        string resultado = Calculadora.Division(dividendo, divisor);
-                        Console.WriteLine(resultado);
-                    }
-                    catch (DivideByZeroException ex)
-                    {
-                        Console.WriteLine($"Hubo un error: {ex.Message}");
+                        int resultado = Calculadora.Division(dividendo, divisor);
+                        Console.WriteLine( $"El resultado de la division es: {resultado}");
                     }
                     catch (FormatException ex)
                     {
                         Console.WriteLine($"Seguro ingreso una letra o no ingreso nada!\nMensaje propio de la excepcion: {ex.Message}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Hubo un error: {ex.Message} La causa fue: {ex.InnerException.Message}");
                     }
                     finally
                     {
@@ -84,8 +85,8 @@ namespace practica2
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Mensaje de excepción: {ex.Message}");
-                        Console.WriteLine($"Tipo de excepción: {ex.GetType().Name}");
+                        Console.WriteLine($"Mensaje de excepcion: {ex.Message}");
+                        Console.WriteLine($"Tipo de excepcion: {ex.GetType().Name}");
 
                     }
                     finally {
@@ -99,8 +100,8 @@ namespace practica2
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Mensaje de excepción: {ex.Message}");
-                        Console.WriteLine($"Tipo de excepción: {ex.GetType().Name}");
+                        Console.WriteLine($"Mensaje de excepcion: {ex.Message}");
+                        Console.WriteLine($"Tipo de excepcion: {ex.GetType().Name}");
                     }
                     finally
                     {
