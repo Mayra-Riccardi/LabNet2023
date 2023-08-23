@@ -10,12 +10,12 @@ namespace practica2
     {
         public static void MetodoConExcepcion()
         {
-            throw new Exception("Mensaje de excepcion de prueba!");
+            throw new InvalidOperationException();
         }
 
         public static void MetodoCustomException()
         {
-            throw new CustomException("Nuestro CustomException capturado");
+            throw new CustomException("CustomException capturado");
 
         }
     }

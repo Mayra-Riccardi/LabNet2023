@@ -20,7 +20,7 @@ namespace practica2.Tests
             // act llama al metodo que lanza la excepcion
             // La excepcion sale automaticamente cuando se llama al metodo!!! NO OLVIDAR, CLAVE
 
-            Assert.ThrowsException<Exception>(() => Logic.MetodoConExcepcion());
+            Assert.ThrowsException<InvalidOperationException>(() => Logic.MetodoConExcepcion());
         }
         [TestMethod()]
         public void MetodoCustomExceptionTest()
