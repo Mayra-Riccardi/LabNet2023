@@ -83,7 +83,7 @@ namespace practica2
                     {
                         Logic.MetodoConExcepcion();
                     }
-                    catch (Exception ex)
+                    catch (InvalidOperationException ex)
                     {
                         Console.WriteLine($"Mensaje de excepcion: {ex.Message}");
                         Console.WriteLine($"Tipo de excepcion: {ex.GetType().Name}");
