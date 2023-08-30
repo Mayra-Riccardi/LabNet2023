@@ -1,5 +1,4 @@
 ﻿using Practica3.EF.Data;
-using Practica3.EF.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace Practica3.EF.Logic
 {
-    public class OrdersLogic : BaseLogic, ILogic<Orders>
+    public abstract class BaseLogic
     {
+        protected NorthwindContext _context;
 
-        public OrdersLogic() : base() { }
-
-        public List<Orders> GetAll()
+        public BaseLogic() 
         {
-            return _context.Orders.ToList();
+            _context = new NorthwindContext();
         }
     }
 }
