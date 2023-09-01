@@ -9,6 +9,9 @@ namespace Practica3.EF.Logic
 {
     public interface ILogic<T>
     {
+        void Delete(int id);
         List<T> GetAll();
+        T Insert(T value);
+        T Update(T value);
     }
 }

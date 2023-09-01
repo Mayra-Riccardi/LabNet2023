@@ -10,7 +10,6 @@ namespace Practica3.EF.Logic
 {
     public class EmployeesLogic : BaseLogic, ILogic<Employees>
     {
-
         public EmployeesLogic() : base() { }
         
         public List<Employees> GetAll()
@@ -22,8 +21,12 @@ namespace Practica3.EF.Logic
         {
             try
             {
+                Validate(employee);
+
                 _context.Employees.Add(employee);
+
                 _context.SaveChanges();
+
                 return employee;
             }
             catch (Exception ex)
@@ -32,21 +35,38 @@ namespace Practica3.EF.Logic
             }
         }
 
-        public void Delete(int employeeId)
+        public Employees Update(Employees employee)
         {
             try
             {
-                var employeeToDelete = _context.Employees.FirstOrDefault(e => e.EmployeeID == employeeId);
+                Validate(employee);
+                var existingEmployee = _context.Employees.Find(employee.EmployeeID);
 
-                if (employeeToDelete != null)
-                {
-                    _context.Employees.Remove(employeeToDelete);
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    throw new ArgumentException($"Employee with ID {employeeId} not found.");
-                }
+                existingEmployee.FirstName = employee.FirstName;
+                existingEmployee.LastName = employee.LastName;
+                existingEmployee.Country = employee.Country;
+
+                _context.SaveChanges();
+                return existingEmployee;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating the employee.", ex);
+            }
+
+        }
+
+        public void Delete(int employeeId)
+        {
+            var employeeToDelete = _context.Employees.FirstOrDefault(e => e.EmployeeID == employeeId);
+            if (employeeToDelete == null)
+            {
+                throw new ArgumentException($"Employee with ID {employeeId} not found.");
+            }
+            try
+            {
+                _context.Employees.Remove(employeeToDelete);
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -54,6 +74,33 @@ namespace Practica3.EF.Logic
             }
         }
 
+        public void Validate(Employees employee)
+        {
+            if (string.IsNullOrEmpty(employee.FirstName) || string.IsNullOrEmpty(employee.LastName) || string.IsNullOrEmpty(employee.Country))
+            {
+                throw new ArgumentException("First name, last name, and country are required.");
+            }
+            if (employee.FirstName.Length < 3 || employee.LastName.Length < 3 || employee.Country.Length < 3)
+            {
+                throw new InvalidOperationException("First name, last name and country requires at least 3 characters");
+            }
+            if (FindNumbers(employee.FirstName) || FindNumbers(employee.LastName) || FindNumbers(employee.Country))
+            {
+                throw new InvalidOperationException("First name, last name and country can´t contains numbers");
+            }
+        }
 
+        private bool FindNumbers(string text)
+        {
+            foreach (char c in text)
+            {
+                if (char.IsDigit(c))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
+

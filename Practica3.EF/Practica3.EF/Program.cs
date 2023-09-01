@@ -14,7 +14,7 @@ namespace Practica3.EF
     {
         static void Main(string[] args)
         {
-            EmployeesLogic employeesLogic = new EmployeesLogic();
+            ILogic<Employees> employeesILogic = new EmployeesLogic();
 
             while (true)
             {
@@ -32,7 +32,6 @@ namespace Practica3.EF
                     switch (choice)
                     {
                         case 1:
-                            ILogic<Employees> employeesILogic = new EmployeesLogic();
                             var employees = employeesILogic.GetAll();
                             Console.WriteLine("Employees List:");
                             foreach (var employee in employees)
@@ -63,45 +62,109 @@ namespace Practica3.EF
                                 Console.Write("Enter Employee Country: ");
                                 string country = Console.ReadLine();
 
-                                Console.Write("Enter Employee Title: ");
-                                string title = Console.ReadLine();
-
-                                Console.Write("Enter Employee Title of Courtesy: ");
-                                string titleOfCourtesy = Console.ReadLine();
-
-                                Console.Write("Enter Employee Address: ");
-                                string address = Console.ReadLine();
 
                                 Employees newEmployee = new Employees
                                 {
                                     FirstName = firstName,
                                     LastName = lastName,
                                     Country = country,
-                                    Title = title,
-                                    TitleOfCourtesy = titleOfCourtesy,
-                                    Address = address
                                 };
+                                EmployeesLogic employeesLogic = new EmployeesLogic();
+                                employeesLogic.Validate(newEmployee);
 
-                                Employees insertedEmployee = employeesLogic.Insert(newEmployee);
+                                Employees insertedEmployee = employeesILogic.Insert(newEmployee);
                                 Console.WriteLine("Employee inserted successfully.");
-                                Console.WriteLine($"ID: {insertedEmployee.EmployeeID} - Name and Surname: {insertedEmployee.LastName} {insertedEmployee.FirstName}");
+                                Console.WriteLine($"ID: {insertedEmployee.EmployeeID} - Name and Surname: {insertedEmployee.LastName} {insertedEmployee.FirstName} - Country: {insertedEmployee.Country}");
 
+                            }
+                            catch (ArgumentException ex)
+                            {
+                                Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
+                            }
+                            catch (InvalidOperationException ex)
+                            {
+                                Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"An error occurred: { ex.Message}");
+                                Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
                             }
                             break;
 
-
                         case 4:
-                            Console.Write("Enter Employee ID to delete: ");
-                            int employeeIdToDelete = int.Parse(Console.ReadLine());
+                            int employeeId = 0;
 
                             try
                             {
-                                employeesLogic.Delete(employeeIdToDelete);
+                                Console.Write("Enter Employee ID to update: ");
+                                employeeId = int.Parse(Console.ReadLine());
+
+                                var existingEmployee = employeesILogic.GetAll().FirstOrDefault(e => e.EmployeeID == employeeId);
+
+                                if (existingEmployee == null)
+                                {
+                                    Console.WriteLine($"Employee with ID {employeeId} not found.");
+                                    break;
+                                }
+                               
+                                Console.Write("Enter updated Employee First Name: ");
+                                string firstName = Console.ReadLine();
+
+                                Console.Write("Enter updated Employee Last Name: ");
+                                string lastName = Console.ReadLine();
+
+                                Console.Write("Enter updated Employee Country: ");
+                                string country = Console.ReadLine();
+
+                                existingEmployee.FirstName = firstName;
+                                existingEmployee.LastName = lastName;
+                                existingEmployee.Country = country;
+
+                                EmployeesLogic employeesLogic = new EmployeesLogic();
+                                employeesLogic.Validate(existingEmployee);
+
+                                employeesILogic.Update(existingEmployee);
+
+                                Console.WriteLine($"Employee with ID {employeeId} updated successfully");
+                            }
+                            catch (FormatException)
+                            {
+                                Console.WriteLine($"Invalid input. Sorry but de Id you provide is not a valid Employee ID.");
+                            }
+
+                            catch (ArgumentException ex)
+                            {
+                                Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
+                            }
+                            catch (InvalidOperationException ex)
+                            {
+                                Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
+                            }
+
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"An error occurred while deleting the employee: {ex.Message}");
+                            }
+                            break;
+
+                        case 5:
+                            int employeeIdToDelete = 0;
+
+                            try
+                            {
+                                Console.Write("Enter Employee ID to delete: ");
+                                employeeIdToDelete = int.Parse(Console.ReadLine());
+
+                                employeesILogic.Delete(employeeIdToDelete);
                                 Console.WriteLine($"Employee with ID {employeeIdToDelete} deleted successfully.");
+                            }
+                            catch (FormatException)
+                            {
+                                Console.WriteLine($"Invalid input. Sorry but de Id you provide is not a valid Employee ID.");
+                            }
+                            catch (ArgumentException ex)
+                            {
+                                Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
                             }
                             catch (Exception ex)
                             {
@@ -109,9 +172,6 @@ namespace Practica3.EF
                             }
                             break;
                             
-                        case 5:
-                            break;
-
                         case 6:
                             Console.WriteLine("Exiting the program...");
                             return;
@@ -119,7 +179,6 @@ namespace Practica3.EF
                         default:
                             Console.WriteLine("Invalid option. Select a valid option.");
                             break;
-
                     }
                 }
                 else
@@ -131,6 +190,4 @@ namespace Practica3.EF
             }
         }
     }
-}
-
-                    
+} 

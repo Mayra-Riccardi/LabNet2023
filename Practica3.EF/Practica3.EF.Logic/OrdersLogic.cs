@@ -17,5 +17,20 @@ namespace Practica3.EF.Logic
         {
             return _context.Orders.ToList();
         }
+
+        public Orders Insert(Orders value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Orders Update(Orders t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
