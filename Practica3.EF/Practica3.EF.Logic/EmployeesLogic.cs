@@ -82,11 +82,11 @@ namespace Practica3.EF.Logic
             }
             if (employee.FirstName.Length < 3 || employee.LastName.Length < 3 || employee.Country.Length < 3)
             {
-                throw new InvalidOperationException("First name, last name and country requires at least 3 characters");
+                throw new ArgumentException("First name, last name and country requires at least 3 characters");
             }
             if (FindNumbers(employee.FirstName) || FindNumbers(employee.LastName) || FindNumbers(employee.Country))
             {
-                throw new InvalidOperationException("First name, last name and country can´t contains numbers");
+                throw new ArgumentException("First name, last name and country can´t contains numbers");
             }
         }
 
