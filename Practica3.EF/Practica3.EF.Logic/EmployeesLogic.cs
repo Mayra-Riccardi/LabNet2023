@@ -21,7 +21,12 @@ namespace Practica3.EF.Logic
         {
             try
             {
-                Validate(employee);
+                var existingEmployee = _context.Employees.FirstOrDefault(e => e.FirstName == employee.FirstName && e.LastName == employee.LastName);
+
+                if (existingEmployee != null)
+                {
+                    throw new ArgumentException("Employee with the first name and last name you provide already exists.");
+                }
 
                 _context.Employees.Add(employee);
 
@@ -29,17 +34,19 @@ namespace Practica3.EF.Logic
 
                 return employee;
             }
+            catch (ArgumentException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw new Exception("An error occurred while inserting the employee.", ex);
             }
         }
-
         public Employees Update(Employees employee)
         {
             try
             {
-                Validate(employee);
                 var existingEmployee = _context.Employees.Find(employee.EmployeeID);
 
                 existingEmployee.FirstName = employee.FirstName;
@@ -53,9 +60,7 @@ namespace Practica3.EF.Logic
             {
                 throw new Exception("An error occurred while updating the employee.", ex);
             }
-
         }
-
         public void Delete(int employeeId)
         {
             var employeeToDelete = _context.Employees.FirstOrDefault(e => e.EmployeeID == employeeId);
@@ -83,6 +88,10 @@ namespace Practica3.EF.Logic
             if (employee.FirstName.Length < 3 || employee.LastName.Length < 3 || employee.Country.Length < 3)
             {
                 throw new ArgumentException("First name, last name and country requires at least 3 characters");
+            }
+            if (employee.FirstName.Length > 10 || employee.LastName.Length > 10 || employee.Country.Length > 10)
+            {
+                throw new ArgumentException("First name, last name, and country can't exceed 10 characters");
             }
             if (FindNumbers(employee.FirstName) || FindNumbers(employee.LastName) || FindNumbers(employee.Country))
             {

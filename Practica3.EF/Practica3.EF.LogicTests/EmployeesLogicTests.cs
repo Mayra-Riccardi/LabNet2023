@@ -90,6 +90,58 @@ namespace Practica3.EF.Logic.Tests
 
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
+        public void Validate_TenCharactersFirstName()
+        {
+            // Arrange
+            EmployeesLogic employeesLogic = new EmployeesLogic();
+            Employees invalidEmployee = new Employees
+            {
+                FirstName = "aaaaaaaaaaaaaaaaaaa",
+                LastName = "Riccardi",
+                Country = "Argentina"
+            };
+
+            // Act
+            employeesLogic.Validate(invalidEmployee);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Validate_TenCharactersLastName()
+        {
+            // Arrange
+            EmployeesLogic employeesLogic = new EmployeesLogic();
+            Employees invalidEmployee = new Employees
+            {
+                FirstName = "Mayra",
+                LastName = "Riccardiiiiiiiiiiiiiiiiiiii",
+                Country = "Argentina"
+            };
+
+            // Act
+            employeesLogic.Validate(invalidEmployee);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Validate_TenCharactersCountry()
+        {
+            // Arrange
+            EmployeesLogic employeesLogic = new EmployeesLogic();
+            Employees invalidEmployee = new Employees
+            {
+                FirstName = "Mayra",
+                LastName = "Riccardi",
+                Country = "Argentinaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            };
+
+            // Act
+            employeesLogic.Validate(invalidEmployee);
+        }
+
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
         public void Validate_NameContainsNumbers()
         {
             // Arrange

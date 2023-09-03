@@ -81,10 +81,7 @@ namespace Practica3.EF
                             {
                                 Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
                             }
-                            catch (InvalidOperationException ex)
-                            {
-                                Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
-                            }
+                  
                             catch (Exception ex)
                             {
                                 Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
@@ -92,7 +89,7 @@ namespace Practica3.EF
                             break;
 
                         case 4:
-                            int employeeId = 0;
+                            int employeeId = 0;//Creo variable int ID Para poder arrojar una excepcion si el id ingresado no existe, sigo pensando como mejorar esto
 
                             try
                             {
@@ -105,8 +102,8 @@ namespace Practica3.EF
                                 {
                                     Console.WriteLine($"Employee with ID {employeeId} not found.");
                                     break;
-                                }
-                               
+                                }//no me convence esta validacion acá
+
                                 Console.Write("Enter updated Employee First Name: ");
                                 string firstName = Console.ReadLine();
 
@@ -136,10 +133,6 @@ namespace Practica3.EF
                             {
                                 Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
                             }
-                            catch (InvalidOperationException ex)
-                            {
-                                Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
-                            }
 
                             catch (Exception ex)
                             {
@@ -148,12 +141,10 @@ namespace Practica3.EF
                             break;
 
                         case 5:
-                            int employeeIdToDelete = 0;
-
                             try
                             {
                                 Console.Write("Enter Employee ID to delete: ");
-                                employeeIdToDelete = int.Parse(Console.ReadLine());
+                                int employeeIdToDelete = int.Parse(Console.ReadLine());
 
                                 employeesILogic.Delete(employeeIdToDelete);
                                 Console.WriteLine($"Employee with ID {employeeIdToDelete} deleted successfully.");
