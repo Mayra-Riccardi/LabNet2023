@@ -63,18 +63,25 @@ namespace Practica4.LQ.Logic
 
             return first3CustomersFromWA;
         }
-        //public IEnumerable<CustomerWithOrdersInfo> CustomersWithOrders()
-        //{
-        //    var query = from customers in _context.Customers
-        //                join orders in _context.Orders
-        //                on customers.CustomerID equals orders.CustomerID into count
-        //                select new CustomerWithOrdersInfo
-        //                {
-        //                    ID = customers.CustomerID,
-        //                    ContactName = customers.ContactName,
-        //                    OrdersQuantity = count.Count()
-        //                };
-        //    return query.ToList();
-        //}
+        public List<object> CustomersWithOrderCount()
+        {
+            var customerOrderCounts = (from customer in _context.Customers
+                                       join order in _context.Orders
+                                       on customer.CustomerID equals order.CustomerID
+                                       group new { customer, order } by new { customer.CustomerID, customer.ContactName } into grouped
+                                       select new
+                                       {
+                                           CustomerID = grouped.Key.CustomerID,
+                                           ContactName = grouped.Key.ContactName,
+                                           OrderCount = grouped.Count()
+                                       }).ToList();
+
+            return customerOrderCounts.Cast<object>().ToList();
+        }
+
+
+
+
+
     }
 }

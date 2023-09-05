@@ -252,23 +252,28 @@ namespace Practica4.LQ
                             }
                             break;
 
-                        //case 13:
-                        //    try
-                        //    {
-                        //        OrdersLogic ordersLogic = new OrdersLogic();
-                        //        var customersWithOrderCount = ordersLogic.GetCustomersWithOrderCount();
+                        case 13:
+                            try
+                            {
+                                CustomersLogic customersLogic = new CustomersLogic();
+                                var customers = customersLogic.CustomersWithOrderCount();
 
-                        //        Console.WriteLine("Customers with Order Count:");
-                        //        foreach (var customer in customersWithOrderCount)
-                        //        {
-                        //            Console.WriteLine($"Customer ID: {customer.CustomerID} - Contact Name: {customer.ContactName} - Order Count: {customer.OrderCount}");
-                        //        }
-                        //    }
-                        //    catch (Exception ex)
-                        //    {
-                        //        Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
-                        //    }
-                        //    break;
+                                Console.WriteLine("Customers with Order Counts:");
+                                foreach (var customer in customers)
+                                {
+                                    var customerID = customer.GetType().GetProperty("CustomerID").GetValue(customer, null);
+                                    var contactName = customer.GetType().GetProperty("ContactName").GetValue(customer, null);
+                                    var orderCount = customer.GetType().GetProperty("OrderCount").GetValue(customer, null);
+
+                                    Console.WriteLine($"Customer ID: {customerID}, Contact Name: {contactName}, Order Count: {orderCount}");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
+                            }
+                            break;
+
 
                         case 14:
                             Console.WriteLine("Exiting the program...Good By, this was the last interactive menu in this lab :)");
