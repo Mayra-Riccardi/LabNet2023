@@ -78,10 +78,5 @@ namespace Practica4.LQ.Logic
 
             return customerOrderCounts.Cast<object>().ToList();
         }
-
-
-
-
-
     }
 }
