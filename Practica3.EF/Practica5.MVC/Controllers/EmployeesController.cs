@@ -1,7 +1,6 @@
 ﻿using Practica3.EF.Logic;
-using Practica5.MVC.Models;
+using Practica3.EF.Logic.DTO;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace Practica5.MVC.Controllers
@@ -11,21 +10,28 @@ namespace Practica5.MVC.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            {
-                var logic = new EmployeesLogic();
-                List<Practica3.EF.Entities.Employees> employees = logic.GetAll();
+            var logic = new EmployeesLogic();
+            List<EmployeesDto> employeesDto = logic.GetAll();
 
-                List<EmployeesView> employeesViews = employees.Select(s => new EmployeesView
-                {
-                    Id = s.EmployeeID,
-                    LastName = s.LastName,
-                    FirstName = s.FirstName,
-                    City = s.City,
-                    Country = s.Country,
-                }).ToList();
-
-                return View(employeesViews);
-            }
+            return View(employeesDto);
         }
-    }
+
+//        public ActionResult Insert() 
+//        {
+//            return View();
+//        }
+
+//        [HttpPost]
+//        public ActionResult Insert(EmployeesView employeesView) 
+//        {
+//            try 
+//            {
+            
+//            }
+//            catch(Exception ex) 
+//            {
+//                throw;
+//            }
+//        }
+   }
 }

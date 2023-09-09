@@ -1,5 +1,6 @@
 ﻿using Practica3.EF.Entities;
 using Practica3.EF.Logic;
+using Practica3.EF.Logic.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Practica3.EF
     {
         static void Main(string[] args)
         {
-            ILogic<Employees> employeesILogic = new EmployeesLogic();
+            ILogic<EmployeesDto> employeesILogic = new EmployeesLogic();
 
             while (true)
             {
@@ -35,7 +36,7 @@ namespace Practica3.EF
                             Console.WriteLine("Employees List:");
                             foreach (var employee in employees)
                             {
-                                Console.WriteLine($"Employee ID: {employee.EmployeeID} - Name: {employee.LastName} {employee.FirstName} - Country: {employee.Country}");
+                                Console.WriteLine($"Employee ID: {employee.Id} - Name: {employee.LastName} {employee.FirstName} - Country: {employee.Country}");
                             }
                             break;
 
@@ -62,18 +63,18 @@ namespace Practica3.EF
                                 string country = Console.ReadLine();
 
 
-                                Employees newEmployee = new Employees
+                                var newEmployeeDto = new EmployeesDto
                                 {
                                     FirstName = firstName,
                                     LastName = lastName,
                                     Country = country,
                                 };
                                 EmployeesLogic employeesLogic = new EmployeesLogic();
-                                employeesLogic.Validate(newEmployee);
+                                employeesLogic.Validate(newEmployeeDto);
 
-                                Employees insertedEmployee = employeesILogic.Insert(newEmployee);
+                                EmployeesDto insertedEmployee = employeesILogic.Insert(newEmployeeDto);
                                 Console.WriteLine("Employee inserted successfully.");
-                                Console.WriteLine($"ID: {insertedEmployee.EmployeeID} - Name and Surname: {insertedEmployee.LastName} {insertedEmployee.FirstName} - Country: {insertedEmployee.Country}");
+                                Console.WriteLine($"ID: {insertedEmployee.Id} - Name and Surname: {insertedEmployee.LastName} {insertedEmployee.FirstName} - Country: {insertedEmployee.Country}");
 
                             }
                             catch (ArgumentException ex)
@@ -95,7 +96,7 @@ namespace Practica3.EF
                                 Console.Write("Enter Employee ID to update: ");
                                 employeeId = int.Parse(Console.ReadLine());
 
-                                var existingEmployee = employeesILogic.GetAll().FirstOrDefault(e => e.EmployeeID == employeeId);
+                                var existingEmployee = employeesILogic.GetAll().FirstOrDefault(e => e.Id == employeeId);
 
                                 if (existingEmployee == null)
                                 {

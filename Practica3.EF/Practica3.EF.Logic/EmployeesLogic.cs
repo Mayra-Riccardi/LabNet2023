@@ -1,38 +1,54 @@
-﻿using Practica3.EF.Data;
-using Practica3.EF.Entities;
+﻿using Practica3.EF.Entities;
+using Practica3.EF.Logic.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Practica3.EF.Logic
 {
-    public class EmployeesLogic : BaseLogic, ILogic<Employees>
+    public class EmployeesLogic : BaseLogic, ILogic<EmployeesDto>
     {
         public EmployeesLogic() : base() { }
         
-        public List<Employees> GetAll()
+        public List<EmployeesDto> GetAll()
         {
-            return _context.Employees.ToList();
+            IEnumerable<Employees> employees = _context.Employees.AsEnumerable();
+            List<EmployeesDto> result = employees.Select(e => new EmployeesDto
+            {
+                Id = e.EmployeeID,
+                LastName = e.LastName,
+                FirstName = e.FirstName,
+                City = e.City,
+                Country = e.Country,
+            }).ToList();
+
+            return result;
         }
 
-        public Employees Insert(Employees employee)
+        public EmployeesDto Insert(EmployeesDto employeeDto)
         {
             try
             {
-                var existingEmployee = _context.Employees.FirstOrDefault(e => e.FirstName == employee.FirstName && e.LastName == employee.LastName);
+                var existingEmployee = _context.Employees.FirstOrDefault(e => e.FirstName == employeeDto.FirstName && e.LastName == employeeDto.LastName);
 
                 if (existingEmployee != null)
                 {
                     throw new ArgumentException("Employee with the first name and last name you provide already exists.");
                 }
 
-                _context.Employees.Add(employee);
+                var newEmployee = new Employees
+                {
+                    FirstName = employeeDto.FirstName,
+                    LastName = employeeDto.LastName,
+                    City = employeeDto.City,
+                    Country = employeeDto.Country
+                };
+
+                _context.Employees.Add(newEmployee);
 
                 _context.SaveChanges();
 
-                return employee;
+                return employeeDto;
             }
             catch (ArgumentException ex)
             {
@@ -43,18 +59,18 @@ namespace Practica3.EF.Logic
                 throw new Exception("An error occurred while inserting the employee.", ex);
             }
         }
-        public Employees Update(Employees employee)
+        public EmployeesDto Update(EmployeesDto employeeDto)
         {
             try
             {
-                var existingEmployee = _context.Employees.Find(employee.EmployeeID);
+                var existingEmployee = _context.Employees.Find(employeeDto.Id);
 
-                existingEmployee.FirstName = employee.FirstName;
-                existingEmployee.LastName = employee.LastName;
-                existingEmployee.Country = employee.Country;
+                existingEmployee.FirstName = employeeDto.FirstName;
+                existingEmployee.LastName = employeeDto.LastName;
+                existingEmployee.Country = employeeDto.Country;
 
                 _context.SaveChanges();
-                return existingEmployee;
+                return employeeDto;
             }
             catch (Exception ex)
             {
@@ -79,21 +95,21 @@ namespace Practica3.EF.Logic
             }
         }
 
-        public void Validate(Employees employee)
+        public void Validate(EmployeesDto employeeDto)
         {
-            if (string.IsNullOrEmpty(employee.FirstName) || string.IsNullOrEmpty(employee.LastName) || string.IsNullOrEmpty(employee.Country))
+            if (string.IsNullOrEmpty(employeeDto.FirstName) || string.IsNullOrEmpty(employeeDto.LastName) || string.IsNullOrEmpty(employeeDto.Country))
             {
                 throw new ArgumentException("First name, last name, and country are required.");
             }
-            if (employee.FirstName.Length < 3 || employee.LastName.Length < 3 || employee.Country.Length < 3)
+            if (employeeDto.FirstName.Length < 3 || employeeDto.LastName.Length < 3 || employeeDto.Country.Length < 3)
             {
                 throw new ArgumentException("First name, last name and country requires at least 3 characters");
             }
-            if (employee.FirstName.Length > 10 || employee.LastName.Length > 10 || employee.Country.Length > 10)
+            if (employeeDto.FirstName.Length > 10 || employeeDto.LastName.Length > 10 || employeeDto.Country.Length > 10)
             {
                 throw new ArgumentException("First name, last name, and country can't exceed 10 characters");
             }
-            if (FindNumbers(employee.FirstName) || FindNumbers(employee.LastName) || FindNumbers(employee.Country))
+            if (FindNumbers(employeeDto.FirstName) || FindNumbers(employeeDto.LastName) || FindNumbers(employeeDto.Country))
             {
                 throw new ArgumentException("First name, last name and country can´t contains numbers");
             }

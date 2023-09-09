@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Practica5.MVC.Models
+namespace Practica3.EF.Logic.DTO
 {
-    public class EmployeesView
+    public class EmployeesDto
     {
         public int Id { get; set; }
         public string LastName { get; set; }

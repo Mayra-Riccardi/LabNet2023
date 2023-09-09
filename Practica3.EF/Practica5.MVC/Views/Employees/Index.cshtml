@@ -1,4 +1,4 @@
-﻿@model List<Practica5.MVC.Models.EmployeesView>
+﻿@model List<Practica3.EF.Logic.DTO.EmployeesDto>
 
 @{
     ViewBag.Title = "Employees Page";
@@ -26,3 +26,7 @@
                 </tr>
             }
 </table>
+
+<div>
+    @Html.ActionLink("Insert new Employeed", "Insert")
+</div>
