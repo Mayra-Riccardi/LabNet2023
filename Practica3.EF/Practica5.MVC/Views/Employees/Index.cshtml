@@ -1,0 +1,28 @@
+﻿@model List<Practica5.MVC.Models.EmployeesView>
+
+@{
+    ViewBag.Title = "Employees Page";
+}
+
+<h1>Lista de Empleados</h1>
+
+<table class="table table-dark table-striped">
+    <tr>
+        <td>Employee ID</td>
+        <td>Employee Last Name</td>
+        <td>Employee First Name</td>
+        <td>Employee City</td>
+        <td>Employee Country</td>
+    </tr>
+
+ @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>@employee.Id</td>
+                    <td>@employee.LastName</td>
+                    <td>@employee.FirstName</td>
+                    <td>@employee.City</td>
+                    <td>@employee.Country</td>
+                </tr>
+            }
+</table>

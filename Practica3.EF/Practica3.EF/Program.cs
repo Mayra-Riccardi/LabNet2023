@@ -2,7 +2,6 @@
 using Practica3.EF.Logic;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -46,7 +45,7 @@ namespace Practica3.EF
                             Console.WriteLine("Orders List:");
                             foreach (var order in orders)
                             {
-                                Console.WriteLine($"Order ID: {order.OrderID} - Date: {order.OrderDate}");
+                                Console.WriteLine($"Order ID: {order.OrderID} - Date: {order.OrderDate} {order.ShipName}");
                             }
                             break;
 

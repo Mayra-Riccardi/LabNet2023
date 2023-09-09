@@ -1,0 +1,26 @@
+﻿@model List< Practica5.MVC.Models.OrderView>
+
+@{
+    ViewBag.Title = "Orders Page";
+}
+
+<h1>Listado de Ordenes</h1>
+
+<table class="table table-dark table-striped">
+    <tr>
+        <td>Order Id</td>
+        <td>Order ShipName</td>
+        <td>Order ShipCity</td>
+        <td>Order ShipCountry</td>
+    </tr>
+
+    @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.ShipName</td>
+                    <td>@order.ShipCity</td>
+                    <td>@order.ShipCountry</td>
+                </tr>
+            }
+</table>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Practica3.EF.Logic;
+using Practica5.MVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,17 @@ namespace Practica5.MVC.Controllers
         // GET: Orders
         public ActionResult Index()
         {
-            return View();
+            var logic = new OrdersLogic();
+            List<Practica3.EF.Entities.Orders> orders = logic.GetAll();
+
+            List<OrderView> orderView = orders.Select(s => new OrderView
+            {
+                Id = s.OrderID,
+                ShipName = s.ShipName,
+                ShipCity = s.ShipCity,
+                ShipCountry = s.ShipCountry,
+            }).ToList();
+            return View(orderView);
         }
     }
 }
