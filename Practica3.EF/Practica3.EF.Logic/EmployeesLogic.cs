@@ -1,4 +1,5 @@
-﻿using Practica3.EF.Entities;
+﻿using Practica3.EF.Data;
+using Practica3.EF.Entities;
 using Practica3.EF.Logic.DTO;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,8 @@ namespace Practica3.EF.Logic
         {
             try
             {
+                Validate(employeeDto);
+
                 var existingEmployee = _context.Employees.FirstOrDefault(e => e.FirstName == employeeDto.FirstName && e.LastName == employeeDto.LastName);
 
                 if (existingEmployee != null)
@@ -77,17 +80,62 @@ namespace Practica3.EF.Logic
                 throw new Exception("An error occurred while updating the employee.", ex);
             }
         }
-        public void Delete(int employeeId)
+        //public bool Delete(int employeeId)
+        //{
+        //    var employeeToDelete = _context.Employees.FirstOrDefault(e => e.EmployeeID == employeeId);
+        //    if (employeeToDelete == null)
+        //    {
+        //        throw new ArgumentException($"Employee with ID {employeeId} not found.");
+        //    }
+        //    try
+        //    {
+        //        _context.Employees.Remove(employeeToDelete);
+        //        _context.SaveChanges();
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("An error occurred while deleting the employee.", ex);
+        //    }
+        //}
+        public bool Delete(int employeeId)
         {
-            var employeeToDelete = _context.Employees.FirstOrDefault(e => e.EmployeeID == employeeId);
-            if (employeeToDelete == null)
-            {
-                throw new ArgumentException($"Employee with ID {employeeId} not found.");
-            }
             try
             {
-                _context.Employees.Remove(employeeToDelete);
-                _context.SaveChanges();
+                using (var context = new NorthwindContext())
+                {
+                    var employeeToDelete = context.Employees
+                        .Include("Orders")         // Cargar pedidos relacionados
+                        .Include("Territories")    // Cargar territorios relacionados
+                        .FirstOrDefault(e => e.EmployeeID == employeeId);
+
+                    if (employeeToDelete == null)
+                    {
+                        throw new ArgumentException($"Employee with ID {employeeId} not found.");
+                    }
+
+                    // Eliminar registros de "Order Details" asociados (eliminación en cascada)
+                    foreach (var order in employeeToDelete.Orders.ToList())
+                    {
+                        foreach (var orderDetail in order.Order_Details.ToList())
+                        {
+                            context.Order_Details.Remove(orderDetail);
+                        }
+                        context.Orders.Remove(order);
+                    }
+
+                    // Eliminar territorios asociados (eliminación en cascada)
+                    foreach (var territory in employeeToDelete.Territories.ToList())
+                    {
+                        context.Territories.Remove(territory);
+                    }
+
+                    // Eliminar al empleado
+                    context.Employees.Remove(employeeToDelete);
+
+                    context.SaveChanges();
+                    return true;
+                }
             }
             catch (Exception ex)
             {

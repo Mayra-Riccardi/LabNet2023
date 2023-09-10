@@ -1,5 +1,22 @@
-﻿@{
+﻿@model Practica3.EF.Logic.DTO.EmployeesDto
+@{
     ViewBag.Title = "Employees Page";
 }
 
 <h1>Insertar nuevo Empleado</h1>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+@using (Html.BeginForm("Insert", "Employees", FormMethod.Post))
+{
+    <label>LastName: </label> @Html.TextBoxFor(e => e.LastName)
+    <label>FirstName: </label>@Html.TextBoxFor(e => e.FirstName)
+    <label>City: </label>@Html.TextBoxFor(e => e.City)
+    <label>Country: </label>@Html.TextBoxFor(e => e.Country)
+    <input type="submit" class="btn-success" value="Guardar" />
+}
