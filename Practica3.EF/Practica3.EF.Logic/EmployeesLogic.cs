@@ -143,6 +143,10 @@ namespace Practica3.EF.Logic
             }
         }
 
+
+
+
+
         public void Validate(EmployeesDto employeeDto)
         {
             if (string.IsNullOrEmpty(employeeDto.FirstName) || string.IsNullOrEmpty(employeeDto.LastName) || string.IsNullOrEmpty(employeeDto.Country))
