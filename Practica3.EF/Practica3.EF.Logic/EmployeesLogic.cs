@@ -66,20 +66,34 @@ namespace Practica3.EF.Logic
         {
             try
             {
+                Validate(employeeDto);
+
                 var existingEmployee = _context.Employees.Find(employeeDto.Id);
 
-                existingEmployee.FirstName = employeeDto.FirstName;
-                existingEmployee.LastName = employeeDto.LastName;
-                existingEmployee.Country = employeeDto.Country;
+                if (existingEmployee != null)
+                {
+                    existingEmployee.FirstName = employeeDto.FirstName;
+                    existingEmployee.LastName = employeeDto.LastName;
+                    existingEmployee.Country = employeeDto.Country;
 
-                _context.SaveChanges();
-                return employeeDto;
+                    _context.SaveChanges();
+                    return employeeDto;
+                }
+                else
+                {
+                    throw new ArgumentException($"Employee with ID {employeeDto.Id} not found.");
+                }
+            }
+            catch(ArgumentException)
+            {
+                throw;
             }
             catch (Exception ex)
             {
                 throw new Exception("An error occurred while updating the employee.", ex);
             }
         }
+
         public bool Delete(int employeeId)
         {
             var employeeToDelete = _context.Employees.FirstOrDefault(e => e.EmployeeID == employeeId);
@@ -98,6 +112,9 @@ namespace Practica3.EF.Logic
                 throw new Exception("An error occurred while deleting the employee.", ex);
             }
         }
+
+
+        //ESTO NO SE SI LO VOY A DEJAR, NO ME GUSTA ELIMINAR EN CASCADA
         //public bool Delete(int employeeId)
         //{
         //    try

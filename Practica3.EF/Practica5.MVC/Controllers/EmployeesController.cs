@@ -8,7 +8,7 @@ namespace Practica5.MVC.Controllers
 {
     public class EmployeesController : Controller
     {
-        //Instancia de logic para poder trabajarlo a nivel general
+        //Instancia de logic para poder trabajarlo a nivel general, sino tenia que estar instanciando una y otra vez
         EmployeesLogic employeesLogic = new EmployeesLogic();
 
         // GET: Employees
@@ -19,22 +19,23 @@ namespace Practica5.MVC.Controllers
             return View(result);
         }
 
+        //Insert
         public ActionResult Insert()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Insert(EmployeesDto employeesDto) 
+        public ActionResult Insert(EmployeesDto employeeDto) 
         {
             try
             {
                 EmployeesDto employeesEntityDto = new EmployeesDto
                 {
-                    FirstName = employeesDto.FirstName,
-                    LastName = employeesDto.LastName,
-                    City = employeesDto.City,
-                    Country = employeesDto.Country
+                    FirstName = employeeDto.FirstName,
+                    LastName = employeeDto.LastName,
+                    City = employeeDto.City,
+                    Country = employeeDto.Country
                 };
 
                 employeesLogic.Insert(employeesEntityDto);
@@ -44,7 +45,7 @@ namespace Practica5.MVC.Controllers
             catch (ArgumentException ex) 
             {
                 ViewBag.ErrorMessage = ex.Message;
-                return View(employeesDto);
+                return View(employeeDto);
             }
             catch (Exception ex) 
             {
@@ -53,26 +54,32 @@ namespace Practica5.MVC.Controllers
             }
         }
 
-        //[HttpPut]
-        //public ActionResult Update(EmployeesDto employeesDto)
-        //{
-        //    try
-        //    {
-        //        employeesLogic.Update(employeesDto); // Llamar a tu método de lógica para actualizar
+        //Update
+        [HttpGet]
+        public ActionResult Update()
+        {
+            return View();
+        }
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        ViewBag.ErrorMessage = ex.Message;
-        //        return View(employeesDto); // Vuelve a la vista de actualización con mensaje de error si es necesario
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.ErrorMessage = ex.Message;
-        //        return RedirectToAction("Index", "Error"); // Redirige a la página de error en caso de error general
-        //    }
-        //}
+        //Update probando Fetch
+        [HttpPost]
+        public ActionResult Update(EmployeesDto employeeDto)
+        {
+            try
+            {
+                employeesLogic.Update(employeeDto);
+
+                return Json(new { success = true });
+            }
+            catch (ArgumentException ex)
+            {
+                return Json(new { success = false, errorMessage = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, errorMessage = ex.Message });
+            }
+        }
 
         //Delete probando Fetch
         public ActionResult Delete(int employeeId)

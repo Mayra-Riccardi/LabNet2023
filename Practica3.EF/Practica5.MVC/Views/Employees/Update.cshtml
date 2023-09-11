@@ -1,0 +1,101 @@
+﻿@model Practica3.EF.Logic.DTO.EmployeesDto
+
+@{
+    ViewBag.Title = "Employees Page";
+}
+
+<h1>Formulario de Actualización de Empleado</h1>
+
+<div id="update-form">
+    @using (Html.BeginForm("Update", "Employees", FormMethod.Post, new { id = "employee-update-form" }))
+    {
+        <div class="form-group">
+            <div>
+                <label for="EmployeeId">ID del Empleado:</label>
+                @Html.TextBoxFor(e => e.Id, new { @class = "form-control" })
+            </div>
+            <div>
+                <label for="FirstName">Nombre:</label>
+                @Html.TextBoxFor(e => e.FirstName, new { @class = "form-control" })
+            </div>
+            <div>
+                <label for="LastName">Apellido:</label>
+                @Html.TextBoxFor(e => e.LastName, new { @class = "form-control" })
+            </div>
+            <div>
+                <label for="City">Ciudad:</label>
+                @Html.TextBoxFor(e => e.City, new { @class = "form-control" })
+            </div>
+            <div>
+                <label for="Country">País:</label>
+                @Html.TextBoxFor(e => e.Country, new { @class = "form-control" })
+            </div>
+        </div>
+        <div style="margin-top: 20px; margin-bottom: 20px;"><input type="submit" value="Guardar Cambios" class="btn btn-success" id="btnUpdate" /></div>
+        
+    }
+
+</div>
+
+@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger" })
+
+<script type="text/javascript" charset="utf-8">
+    document.getElementById('btnUpdate').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: '¿Está seguro?',
+            text: '¿Desea guardar los cambios?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Guardar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const updateData = {
+                    Id: document.getElementById('Id').value,
+                    FirstName: document.getElementById('FirstName').value,
+                    LastName: document.getElementById('LastName').value,
+                    Country: document.getElementById('Country').value
+                };
+
+                fetch('/Employees/Update', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                title: 'Éxito',
+                                text: 'Los cambios se guardaron correctamente',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = '/Employees/Index';
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Ups Error",
+                                text: data.errorMessage,
+                                icon: "error"
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        Swal.fire(data.error);
+                    });
+            }
+        });
+    });
+
+</script>

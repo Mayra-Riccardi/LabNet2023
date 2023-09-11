@@ -8,7 +8,7 @@
 
 <table class="table table-dark table-striped">
     <tr>
-        <th class="hide-employee-id">Employee ID</th>
+        <th @*class="hide-employee-id"*@>Employee ID</th>
         <th>Employee Last Name</th>
         <th>Employee First Name</th>
         <th>Employee City</th>
@@ -19,7 +19,7 @@
     @foreach (var employee in Model)
     {
         <tr>
-            <td class="hide-employee-id">@employee.Id</td>
+            <td @*class="hide-employee-id"*@>@employee.Id</td>
             <td>@employee.LastName</td>
             <td>@employee.FirstName</td>
             <td>@employee.City</td>
@@ -28,16 +28,22 @@
                 <button type="button"
                         class="btn btn-danger"
                         onclick="deleteEmployee(@employee.Id)">
-                     Delete   
+                    Delete
                 </button>
             </td>
         </tr>
     }
 </table>
 
-<div>
-    @Html.ActionLink("Insert new Employee", "Insert")
+<h3>Please, select the option you want to do with Employees Entity</h3>
+
+<div style="margin-bottom: 20px;">
+    <a href="@Url.Action("Insert", "Employees")" class="btn btn-primary">Insert new Employee</a>
 </div>
+<div>
+    <a href="@Url.Action("Update", "Employees")" class="btn btn-secondary">Update new Employee</a>
+</div>
+
 
 @section Scripts{
     <script type="text/javascript" charset="utf-8">
