@@ -187,9 +187,8 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
-    <Content Include="Views\Employees\Insert.cshtml" />
+    <Content Include="Views\Employees\InsertOrUpdate.cshtml" />
     <Content Include="Views\Error\View.cshtml" />
-    <Content Include="Views\Employees\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -22,15 +22,17 @@ namespace Practica5.MVC.Controllers
         //Insert
         public ActionResult Insert()
         {
-            return View();
+            ViewData["Action"] = "Insert";
+            ViewData["IsInsert"] = true; // Indico que es una inserción
+            return View("InsertOrUpdate");
         }
 
         [HttpPost]
-        public ActionResult Insert(EmployeesDto employeeDto) 
+        public ActionResult Insert(EmployeesDto employeeDto)
         {
             try
             {
-                EmployeesDto employeesEntityDto = new EmployeesDto
+                EmployeesDto employeeEntityDto = new EmployeesDto
                 {
                     FirstName = employeeDto.FirstName,
                     LastName = employeeDto.LastName,
@@ -38,27 +40,27 @@ namespace Practica5.MVC.Controllers
                     Country = employeeDto.Country
                 };
 
-                employeesLogic.Insert(employeesEntityDto);
+                employeesLogic.Insert(employeeEntityDto);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index"); ;
             }
-            catch (ArgumentException ex) 
+            catch (ArgumentException ex)
             {
-                ViewBag.ErrorMessage = ex.Message;
-                return View(employeeDto);
+                return Json(new { success = false, errorMessage = ex.Message });
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                ViewBag.ErrorMessage = ex.Message;
-                return RedirectToAction("Index", "Error");
+                return Json(new { success = false, errorMessage = ex.Message });
             }
         }
 
-        //Update
-        [HttpGet]
+            //Update
+            [HttpGet]
         public ActionResult Update()
         {
-            return View();
+            ViewData["Action"] = "Update";
+            ViewData["IsInsert"] = false; // Indico que es una actualización
+            return View("InsertOrUpdate");
         }
 
         //Update probando Fetch

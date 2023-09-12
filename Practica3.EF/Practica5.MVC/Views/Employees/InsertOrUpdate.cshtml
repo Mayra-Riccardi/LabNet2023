@@ -1,0 +1,149 @@
+﻿@{@model Practica3.EF.Logic.DTO.EmployeesDto
+
+string action = ViewData["Action"] as string;
+bool isInsert = action == "Insert";
+string Title = isInsert ? "Agregar Empleado" : "Actualizar Empleado";
+bool isDisabled = !isInsert;
+
+string btnLabel = isInsert ? "Agregar" : "Actualizar";
+
+
+}
+
+
+
+<h1>Formulario</h1>
+<h2>@Title</h2>
+
+
+@using (Html.BeginForm(action, "Employees", FormMethod.Post))
+
+
+{
+    <div class="form-group" id="form">
+        <div>
+            <div>
+                <label>Ingrese el EmployeeID</label>
+                @if (isDisabled)
+                {
+                    @Html.TextBoxFor(e => e.Id, htmlAttributes: new { @class = "control-label form-control" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(e => e.Id, htmlAttributes: new { @class = "control-label form-control", disabled = "disabled" })
+                }
+            </div>
+            <div>
+                <label for="LastName">Apellido:</label>
+                @Html.TextBoxFor(e => e.LastName, new { @class = "form-control" })
+            </div>
+            <div>
+                <label for="FirstName">Nombre:</label>
+                @Html.TextBoxFor(e => e.FirstName, new { @class = "form-control" })
+            </div>
+            <div>
+                <label for="City">Ciudad:</label>
+                @Html.TextBoxFor(e => e.City, new { @class = "form-control" })
+            </div>
+            <div>
+                <label for="Country">País:</label>
+                @Html.TextBoxFor(e => e.Country, new { @class = "form-control" })
+            </div>
+            <div style="margin-top:20px;">
+                @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-danger" })
+                <input id="ok" type="submit" class="btn btn-success" value="@btnLabel" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@if (isInsert)
+{
+    <script type="text/javascript" charset="utf-8">
+        console.log("entre a script de insert")
+
+        document.getElementById("ok").addEventListener("click", function (event) {
+            var lastName = document.getElementById("LastName").value;
+            var firstName = document.getElementById("FirstName").value;
+            var city = document.getElementById("City").value;
+            var country = document.getElementById("Country").value;
+
+            if (!lastName || !firstName || !city || !country) {
+                event.preventDefault();
+                alert("Todos los campos son obligatorios.");
+            }
+        });
+    </script>
+}
+else
+{
+    <script type="text/javascript" charset="utf-8">
+        console.log("entre a script de update")
+        document.getElementById('ok').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: '¿Está seguro?',
+                text: '¿Desea guardar los cambios?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Guardar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const updateData = {
+                        Id: document.getElementById('Id').value,
+                        FirstName: document.getElementById('FirstName').value,
+                        LastName: document.getElementById('LastName').value,
+                        City: document.getElementById('City').value,
+                        Country: document.getElementById('Country').value
+                    };
+                    console.log(updateData)
+
+                    fetch('/Employees/Update', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(updateData)
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    title: 'Éxito',
+                                    text: 'Los cambios se guardaron correctamente',
+                                    icon: 'success',
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'OK'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '/Employees/Index';
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: "Ups Error",
+                                    text: data.errorMessage,
+                                    icon: "error"
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            Swal.fire(data.error);
+                        });
+                }
+            });
+        });
+    </script>
+}
+
+
+
+
+
