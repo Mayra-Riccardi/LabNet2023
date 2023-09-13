@@ -39,14 +39,14 @@ namespace Practica7.WebApi.Controllers
                 EmployeesLogic customerLogic = new EmployeesLogic();
                 var employee = customerLogic.GetById(id);
 
-                if (employee == null)
-                {
-                    return Content(HttpStatusCode.NotFound, new { status = 404, message = $"Employee with ID {id} not found." });
-                }
-
                 return Content(HttpStatusCode.OK, new { status = 200, employee });
             }
-     
+
+            catch (InvalidOperationException ex)
+            {
+                return Content(HttpStatusCode.NotFound, new { status = 404, message = ex.Message });
+            }
+
             catch (Exception ex)
             {
                 return Content(HttpStatusCode.InternalServerError, new { status = 500, message = ex.Message });
@@ -110,11 +110,11 @@ namespace Practica7.WebApi.Controllers
             {
                 EmployeesLogic employeesLogic = new EmployeesLogic();
                 employeesLogic.Delete(id);
+
                 return Content(HttpStatusCode.OK, new { status = 200, message = $"Employee with ID {id}, successfully deleted" });
-              
-            
+
             }
-            catch (ArgumentException ex)
+            catch (InvalidOperationException ex)
             {
                 return Content(HttpStatusCode.NotFound, new { status = 404, ex.Message });
             }

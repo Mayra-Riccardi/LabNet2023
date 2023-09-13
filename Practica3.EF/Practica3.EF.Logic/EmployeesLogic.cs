@@ -27,26 +27,31 @@ namespace Practica3.EF.Logic
 
         public EmployeesDto GetById(int employeeId) 
         {
-           try
+            try
             {
                 var existingEmployee = _context.Employees.Find(employeeId);
 
 
-                if (existingEmployee == null)
+                if (existingEmployee != null)
                 {
-                    return null;
+                    EmployeesDto employeesDto = new EmployeesDto
+                    {
+                        Id = existingEmployee.EmployeeID,
+                        LastName = existingEmployee.LastName,
+                        FirstName = existingEmployee.FirstName,
+                        City = existingEmployee.City,
+                        Country = existingEmployee.Country
+                    };
+                     return employeesDto;
                 }
-
-                EmployeesDto employeesDto = new EmployeesDto
+                else
                 {
-                    Id = existingEmployee.EmployeeID,
-                    LastName = existingEmployee.LastName,
-                    FirstName = existingEmployee.FirstName,
-                    City = existingEmployee.City,
-                    Country = existingEmployee.Country,
-                };
-
-                return employeesDto;
+                    throw new InvalidOperationException($"Employee with ID: {employeeId} not found.");
+                }
+            }
+            catch(InvalidOperationException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -135,7 +140,7 @@ namespace Practica3.EF.Logic
             var employeeToDelete = _context.Employees.FirstOrDefault(e => e.EmployeeID == employeeId);
             if (employeeToDelete == null)
             {
-                throw new ArgumentException($"Employee with ID {employeeId} not found.");
+                throw new InvalidOperationException($"Employee with ID {employeeId} not found.");
             }
             try
             {
@@ -145,7 +150,7 @@ namespace Practica3.EF.Logic
             }
             catch (Exception ex)
             {
-                throw new Exception("The employee could not be deleted due to database conditions.", ex);
+                throw new Exception($"The Employee with ID: {employeeId} couldn´t be deleted due to database conditions.", ex);
             }
         }
 
