@@ -79,6 +79,9 @@ namespace Practica3.EF.Logic
 
                 _context.SaveChanges();
 
+                //Hago esto para poder enviar como respuesta json en el controller el nuevo Id generado, sino me lo mostraba como cero, no mostraba el id creado por la db
+                employeeDto.Id = newEmployee.EmployeeID;// le asigno el nuevo id generado en la db al employeeDto
+
                 return employeeDto;
             }
             catch (ArgumentException ex)
@@ -144,21 +147,21 @@ namespace Practica3.EF.Logic
 
         public void Validate(EmployeesDto employeeDto)
         {
-            if (string.IsNullOrEmpty(employeeDto.FirstName) || string.IsNullOrEmpty(employeeDto.LastName) || string.IsNullOrEmpty(employeeDto.Country))
+            if (string.IsNullOrEmpty(employeeDto.FirstName) || string.IsNullOrEmpty(employeeDto.LastName) || string.IsNullOrEmpty(employeeDto.City) || string.IsNullOrEmpty(employeeDto.Country))
             {
-                throw new ArgumentException("First name, last name, and country are required.");
+                throw new ArgumentException("First name, last name, City, and country are required.");
             }
-            if (employeeDto.FirstName.Length < 3 || employeeDto.LastName.Length < 3 || employeeDto.Country.Length < 3)
+            if (employeeDto.FirstName.Length < 3 || employeeDto.LastName.Length < 3 || employeeDto.City.Length < 3)
             {
-                throw new ArgumentException("First name, last name and country requires at least 3 characters");
+                throw new ArgumentException("First name, last name and city requires at least 3 characters");
             }
-            if (employeeDto.FirstName.Length > 10 || employeeDto.LastName.Length > 10 || employeeDto.Country.Length > 10)
+            if (employeeDto.FirstName.Length > 10 || employeeDto.LastName.Length > 10 || employeeDto.City.Length > 10 || employeeDto.Country.Length > 10)
             {
-                throw new ArgumentException("First name, last name, and country can't exceed 10 characters");
+                throw new ArgumentException("First name, last name, city and country can't exceed 10 characters");
             }
-            if (FindNumbers(employeeDto.FirstName) || FindNumbers(employeeDto.LastName) || FindNumbers(employeeDto.Country))
+            if (FindNumbers(employeeDto.FirstName) || FindNumbers(employeeDto.LastName) || FindNumbers(employeeDto.City) || FindNumbers(employeeDto.Country))
             {
-                throw new ArgumentException("First name, last name and country can´t contains numbers");
+                throw new ArgumentException("First name, last name, city and country can´t contains numbers");
             }
         }
 

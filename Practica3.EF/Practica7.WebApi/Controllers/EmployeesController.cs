@@ -10,7 +10,7 @@ namespace Practica7.WebApi.Controllers
     public class EmployeesController : ApiController
     {
 
-        //Get: Employees
+        //GET api/Employees
         public IHttpActionResult Get()
         {
             try
@@ -30,7 +30,7 @@ namespace Practica7.WebApi.Controllers
 
         }
 
-        //GET api/values/5
+        //GET api/Employees/:id
         public IHttpActionResult Get(int id)
         {
             try
@@ -52,7 +52,56 @@ namespace Practica7.WebApi.Controllers
             }
         }
 
-        //Delete api/values/5
+        // POST api/Employees ---- Post([FromBody] string value
+        public IHttpActionResult Post([FromBody] EmployeesDto employeesDto)
+        {
+            try
+            {
+                EmployeesLogic employeesLogic = new EmployeesLogic();
+                var insertedEmployee = employeesLogic.Insert(employeesDto);
+
+                return Content(HttpStatusCode.Created, new { status = 201, message = "Employee created successfully", employee = insertedEmployee });
+            }
+            catch (ArgumentException ex)
+            {
+                return Content(HttpStatusCode.BadRequest, new { status = 400, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.InternalServerError, new { status = 500, message = ex.Message });
+            }
+        }
+
+        // PUT api/Wmployees/:id ---- Put(int id[FromBody] string value
+        //Le paso el id como parámetro en la Url, estoy mas acostumbrada asi, no se si es o no una buena practica, o es mejor pasarlo a través del body.
+        public IHttpActionResult Put(int id, [FromBody] EmployeesDto employeesDto)
+        {
+            try
+            {
+                employeesDto.Id = id;
+                EmployeesLogic employeesLogic = new EmployeesLogic();
+                var updatedEmployee = employeesLogic.Update(employeesDto);
+
+                if (updatedEmployee == null)
+                {
+                    return Content(HttpStatusCode.NotFound, new { status = 404, message = $"Employee with ID {employeesDto.Id} not found." });
+                }
+
+                return Content(HttpStatusCode.OK, new { status = 200, message = "Employee updated successfully", employee = updatedEmployee });
+            }
+            catch (ArgumentException ex)
+            {
+                return Content(HttpStatusCode.BadRequest, new { status = 400, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.InternalServerError, new { status = 500, message = ex.Message });
+            }
+        }
+
+
+
+        //Delete api/Employees/:id
         public IHttpActionResult Delete(int id)
         {
             try
