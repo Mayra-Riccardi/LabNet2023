@@ -25,6 +25,35 @@ namespace Practica3.EF.Logic
             return result;
         }
 
+        public EmployeesDto GetById(int employeeId) 
+        {
+           try
+            {
+                var existingEmployee = _context.Employees.Find(employeeId);
+
+
+                if (existingEmployee == null)
+                {
+                    return null;
+                }
+
+                EmployeesDto employeesDto = new EmployeesDto
+                {
+                    Id = existingEmployee.EmployeeID,
+                    LastName = existingEmployee.LastName,
+                    FirstName = existingEmployee.FirstName,
+                    City = existingEmployee.City,
+                    Country = existingEmployee.Country,
+                };
+
+                return employeesDto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred", ex);
+            }
+        }
+
         public EmployeesDto Insert(EmployeesDto employeeDto)
         {
             try

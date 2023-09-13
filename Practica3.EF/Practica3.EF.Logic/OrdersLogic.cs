@@ -29,5 +29,10 @@ namespace Practica3.EF.Logic
         {
             throw new NotImplementedException();
         }
+
+        public Orders GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
