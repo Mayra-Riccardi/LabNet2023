@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practica3.EF.Logic", "Pract
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practica3.EF.LogicTests", "Practica3.EF.LogicTests\Practica3.EF.LogicTests.csproj", "{1695B394-01DF-414D-8ABE-CB4498367D28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practica6.MVC", "Practica5.MVC\Practica6.MVC.csproj", "{098BDA1F-EA1F-44B6-996C-233A344EF623}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practica5.MVC", "Practica5.MVC\Practica5.MVC.csproj", "{098BDA1F-EA1F-44B6-996C-233A344EF623}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{6B886623-0716-465E-A010-D6D2141E1879}"
 EndProject
