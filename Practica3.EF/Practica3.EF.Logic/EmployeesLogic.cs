@@ -164,9 +164,9 @@ namespace Practica3.EF.Logic
             {
                 throw new ArgumentException("First name, last name and city requires at least 3 characters");
             }
-            if (employeeDto.FirstName.Length > 10 || employeeDto.LastName.Length > 10 || employeeDto.City.Length > 10 || employeeDto.Country.Length > 10)
+            if (employeeDto.FirstName.Length > 10 || employeeDto.LastName.Length > 15 || employeeDto.City.Length > 15 || employeeDto.Country.Length > 15)
             {
-                throw new ArgumentException("First name, last name, city and country can't exceed 10 characters");
+                throw new ArgumentException("First name, last name, city and country can't exceed 15 characters");
             }
             if (FindNumbers(employeeDto.FirstName) || FindNumbers(employeeDto.LastName) || FindNumbers(employeeDto.City) || FindNumbers(employeeDto.Country))
             {
