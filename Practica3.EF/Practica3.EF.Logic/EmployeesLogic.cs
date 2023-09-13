@@ -113,10 +113,14 @@ namespace Practica3.EF.Logic
                 }
                 else
                 {
-                    throw new ArgumentException($"Employee with ID {employeeDto.Id} not found.");
+                    throw new InvalidOperationException($"Employee with ID {employeeDto.Id} not found.");
                 }
             }
-            catch(ArgumentException)
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            catch (ArgumentException)
             {
                 throw;
             }
