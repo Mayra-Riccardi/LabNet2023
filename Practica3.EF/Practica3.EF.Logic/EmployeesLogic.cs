@@ -108,6 +108,15 @@ namespace Practica3.EF.Logic
 
                 if (existingEmployee != null)
                 {
+
+                    var duplicateEmployee = _context.Employees .FirstOrDefault(
+                        e => e.EmployeeID != employeeDto.Id && e.FirstName == employeeDto.FirstName && e.LastName == employeeDto.LastName);
+
+                    if (duplicateEmployee != null)
+                    {
+                        throw new ArgumentException("Cannot update the Employee because the name and last name you provide already exists in our registers.");
+                    }
+
                     existingEmployee.FirstName = employeeDto.FirstName;
                     existingEmployee.LastName = employeeDto.LastName;
                     existingEmployee.City = employeeDto.City;
