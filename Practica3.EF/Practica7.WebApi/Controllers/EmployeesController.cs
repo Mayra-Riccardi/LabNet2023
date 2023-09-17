@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Practica7.WebApi.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "GET,POST,PUT,DELETE,OPTIONS")]
     public class EmployeesController : ApiController
     {
 
@@ -19,7 +21,7 @@ namespace Practica7.WebApi.Controllers
 
                 List<EmployeesDto> employeesDto = employeesLogic.GetAll();
 
-                return Content(HttpStatusCode.OK, new { status = 200, employeesDto });
+                return Content(HttpStatusCode.OK, employeesDto);
             }
 
             catch (Exception ex)
