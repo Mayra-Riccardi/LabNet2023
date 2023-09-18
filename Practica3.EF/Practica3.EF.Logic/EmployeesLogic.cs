@@ -3,6 +3,8 @@ using Practica3.EF.Logic.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Practica3.EF.Logic.Validators;
+using Practica3.EF.Logic.Utilities;
 
 namespace Practica3.EF.Logic
 {
@@ -63,7 +65,13 @@ namespace Practica3.EF.Logic
         {
             try
             {
-                Validate(employeeDto);
+                EmployeeValidator employeeValidator = new EmployeeValidator();
+                List<string> validationErrors = employeeValidator.Validate(employeeDto);
+
+                if (validationErrors.Count > 0)
+                {
+                    ValidationUtilities.ThrowValidationErrors(validationErrors);
+                }
 
                 var existingEmployee = _context.Employees.FirstOrDefault(e => e.FirstName == employeeDto.FirstName && e.LastName == employeeDto.LastName);
 
@@ -102,7 +110,13 @@ namespace Practica3.EF.Logic
         {
             try
             {
-                Validate(employeeDto);
+                EmployeeValidator employeeValidator = new EmployeeValidator();
+                List<string> validationErrors = employeeValidator.Validate(employeeDto);
+
+                if (validationErrors.Count > 0)
+                {
+                    ValidationUtilities.ThrowValidationErrors(validationErrors);
+                }
 
                 var existingEmployee = _context.Employees.Find(employeeDto.Id);
 
@@ -159,40 +173,8 @@ namespace Practica3.EF.Logic
             }
             catch (Exception ex)
             {
-                throw new Exception($"The Employee with ID: {employeeId} couldn´t be deleted due to database conditions.", ex);
+                throw new Exception($"Ups, sorry. You can´t delete this Employee.", ex);
             }
-        }
-
-        public void Validate(EmployeesDto employeeDto)
-        {
-            if (string.IsNullOrEmpty(employeeDto.FirstName) || string.IsNullOrEmpty(employeeDto.LastName) || string.IsNullOrEmpty(employeeDto.City) || string.IsNullOrEmpty(employeeDto.Country))
-            {
-                throw new ArgumentException("First name, last name, City, and country are required.");
-            }
-            if (employeeDto.FirstName.Length < 3 || employeeDto.LastName.Length < 3 || employeeDto.City.Length < 3)
-            {
-                throw new ArgumentException("First name, last name and city requires at least 3 characters");
-            }
-            if (employeeDto.FirstName.Length > 10 || employeeDto.LastName.Length > 15 || employeeDto.City.Length > 15 || employeeDto.Country.Length > 15)
-            {
-                throw new ArgumentException("First name, last name, city and country can't exceed 15 characters");
-            }
-            if (FindNumbers(employeeDto.FirstName) || FindNumbers(employeeDto.LastName) || FindNumbers(employeeDto.City) || FindNumbers(employeeDto.Country))
-            {
-                throw new ArgumentException("First name, last name, city and country can´t contains numbers");
-            }
-        }
-
-        private bool FindNumbers(string text)
-        {
-            foreach (char c in text)
-            {
-                if (char.IsDigit(c))
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }
