@@ -1,1 +1,34 @@
-<h1>Login</h1>
+<div class = "body-login">
+    <div class="login">
+
+
+        <form [formGroup]="formLogin" (ngSubmit)="login()">
+            <img src="../../../assets/img//usuario.png" width="40%"/>
+            <h1>Login</h1>
+            
+            <mat-form-field appearance="fill">
+                <mat-label>Usuario</mat-label>
+                <input matInput placeholder="Username" formControlName="userName">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </mat-form-field>
+     
+              <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="Password" formControlName="password">
+                <input matInput [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+    
+              <br />
+              <button type="submit" class="ancho" mat-raised-button color="primary" [disabled]="formLogin.invalid">Ingresar</button>
+        </form>
+
+   
+       
+
+    </div>   
+</div>
+
+
