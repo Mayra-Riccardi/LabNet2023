@@ -1,0 +1,67 @@
+/* Estilo para el formulario */
+.form-container {
+    width: 100%;
+    max-width: 800px; /* Ajusta el ancho máximo del formulario */
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 556px;
+    margin-bottom: 170px;
+    
+  }
+  
+  /* Estilo para los campos */
+  .form-field {
+    width: 100%;
+    max-width: 400px; /* Ajusta el ancho máximo de los campos */
+    margin: 0 auto;
+    margin-bottom: 20px; /* Espacio entre los campos */
+  }
+
+  .titulo {
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 34px;
+    margin-top: 50px;
+    margin-left: -135px;
+    margin-bottom: 70px;
+}
+  
+  /* Estilo para el botón */
+  button {
+    width: 100%;
+    max-width: 200px; /* Ajusta el ancho máximo del botón */
+    margin: 0 auto;
+    margin-right: 227px;
+  }
+  
+  /* FOOTER */
+.footer {
+  margin-top: 20px;
+  text-align: center;
+  padding: 10px;
+  margin-right: 117px;
+}
+
+.footer hr {
+  border-color: #a19b9b;
+}
+
+.footer p {
+  font-size: 12px;
+  color: #888;
+}
+
+/* styles.css o styles.scss */
+@import "~font-awesome/css/font-awesome.css";
+
+.footer i.fa {
+  margin: 0 10px; /* Ajusta el espacio horizontal entre los íconos */
+  font-size: 24px; /* Ajusta el tamaño de los íconos */
+  color: black; /* Cambia el color de los íconos a negro */
+}

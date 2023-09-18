@@ -1,0 +1,39 @@
+/* Estilo para el formulario */
+.form-container {
+    width: 100%;
+    max-width: 800px; /* Ajusta el ancho máximo del formulario */
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    
+  }
+  
+  /* Estilo para los campos */
+  .form-field {
+    width: 100%;
+    max-width: 400px; /* Ajusta el ancho máximo de los campos */
+    margin: 0 auto;
+    margin-bottom: 20px; /* Espacio entre los campos */
+  }
+
+  .titulo {
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 34px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+  
+  /* Estilo para el botón */
+  button {
+    width: 100%;
+    max-width: 200px; /* Ajusta el ancho máximo del botón */
+    margin: 0 auto;
+  }
+  

@@ -1,0 +1,38 @@
+<h1 class="titulo">Actualizar Empleado</h1>
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form-container">
+  <div class="form-field">
+    <mat-form-field>
+      <input matInput formControlName="LastName" placeholder="Apellido" required>
+      <mat-error *ngIf="employeeForm.get('LastName')?.hasError('maxlength')">El apellido no puede tener más de 15 caracteres.</mat-error>
+      <mat-error *ngIf="employeeForm.get('LastName')?.hasError('minlength')">El apellido debe tener al menos 3 caracteres.</mat-error>
+      <mat-error *ngIf="employeeForm.get('LastName')?.hasError('pattern')">El apellido no puede contener números.</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-field">
+    <mat-form-field>
+      <input matInput formControlName="FirstName" placeholder="Nombre" required>
+      <mat-error *ngIf="employeeForm.get('FirstName')?.hasError('maxlength')">El nombre no puede tener más de 15 caracteres.</mat-error>
+      <mat-error *ngIf="employeeForm.get('FirstName')?.hasError('minlength')">El nombre debe tener al menos 3 caracteres.</mat-error>
+      <mat-error *ngIf="employeeForm.get('FirstName')?.hasError('pattern')">El nombre no puede contener números.</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-field">
+    <mat-form-field>
+      <input matInput formControlName="City" placeholder="Ciudad" required>
+      <mat-error *ngIf="employeeForm.get('City')?.hasError('maxlength')">La ciudad no puede tener más de 15 caracteres.</mat-error>
+      <mat-error *ngIf="employeeForm.get('City')?.hasError('minlength')">La ciudad debe tener al menos 3 caracteres.</mat-error>
+      <mat-error *ngIf="employeeForm.get('City')?.hasError('pattern')">La ciudad no puede contener números.</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-field">
+    <mat-form-field>
+      <input matInput formControlName="Country" placeholder="País" required>
+      <mat-error *ngIf="employeeForm.get('Country')?.hasError('maxlength')">El país no puede tener más de 15 caracteres.</mat-error>
+      <mat-error *ngIf="employeeForm.get('Country')?.hasError('minlength')">El país debe tener al menos 3 caracteres.</mat-error>
+      <mat-error *ngIf="employeeForm.get('Country')?.hasError('pattern')">El país no puede contener números.</mat-error>
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" type="submit" [disabled]="employeeForm.invalid" style="margin-bottom: 20px;">Guardar</button>
+  <button mat-raised-button type="button" color="warn" (click)="closeModal()">Cancelar</button>
+</form>
+
