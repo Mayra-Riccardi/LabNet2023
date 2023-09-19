@@ -77,7 +77,7 @@ namespace Practica3.EF.Logic
 
                 if (existingEmployee != null)
                 {
-                    throw new ArgumentException("Employee with the first name and last name you provide already exists.");
+                    throw new ArgumentException("Ups, sorry! An employee with the provided first name and last name already exists in our records.");
                 }
 
                 var newEmployee = new Employees
@@ -128,7 +128,7 @@ namespace Practica3.EF.Logic
 
                     if (duplicateEmployee != null)
                     {
-                        throw new ArgumentException("Cannot update the Employee because the name and last name you provide already exists in our registers.");
+                        throw new ArgumentException("Ups, sorry! You can't update the employee because the provided first name and last name already exist in our records.");
                     }
 
                     existingEmployee.FirstName = employeeDto.FirstName;
