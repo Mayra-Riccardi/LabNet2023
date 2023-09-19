@@ -1,8 +1,9 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { EmployeeService } from '../../service/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -23,39 +24,50 @@ export class AddModalComponent implements OnInit {
     private dialogRef: MatDialogRef<AddModalComponent>
   ) {
     this.employeeForm = this.formBuilder.group({
-      LastName: ["", [Validators.required, Validators.maxLength(15), Validators.minLength(3), Validators.pattern(/^[A-Za-z]+$/)]],
-      FirstName: ["", [Validators.required, Validators.maxLength(15), Validators.minLength(3), Validators.pattern(/^[A-Za-z]+$/)]],
-      City: ["", [Validators.required, Validators.maxLength(15), Validators.minLength(3), Validators.pattern(/^[A-Za-z]+$/)]],
-      Country: ["", [Validators.required, Validators.maxLength(15), Validators.minLength(3), Validators.pattern(/^[A-Za-z]+$/)]]
+      LastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15), Validators.pattern('[a-zA-Z ]*')]),
+      FirstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15), Validators.pattern('[a-zA-Z ]*')]),
+      City: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15), Validators.pattern('[a-zA-Z ]*')]),
+      Country: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15), Validators.pattern('[a-zA-Z ]*')])
     });
   }
 
   ngOnInit(): void {
   }
 
-
   onSubmit() {
     if (this.employeeForm.valid) {
       const formData = this.employeeForm.value;
   
-      this._employeeService.addEmployee(formData).subscribe({
-        next: (result) => {
-          this.snackBar.open("Empleado agregado con éxito", "Cerrar", {
-            duration: 2000, 
-            panelClass: ['mat-toolbar', 'mat-primary']
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to add this employee?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, add',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this._employeeService.addEmployee(formData).subscribe({
+            next: (result) => {
+              this.snackBar.open("Employee succesfully added", "Close", {
+                duration: 2000, 
+                panelClass: ['mat-toolbar', 'mat-primary']
+              });
+              this.dialogRef.close('created');
+            },
+            error: (errorResponse) => {
+              if (errorResponse.error) {
+                Swal.fire('Error', errorResponse.error.error, 'error');
+              } else {
+                Swal.fire('Error', 'An error occurred while adding the employee', 'error');
+                console.error('Error while adding the employee', errorResponse);
+              }
+            },
           });
-          console.log("Empleado agregado ", result);
-          this.dialogRef.close('creado');
-        },
-        error: (error) => {
-          alert("Hubo un error al agregar el empleado");
-          console.error("Error al agregar el empleado", error);
         }
       });
     }
   }
-  
-  //Para cerrar el modal sin hacer nada y sin necesidad de apretar cancel
   closeModal() {
     this.dialogRef.close();
   }

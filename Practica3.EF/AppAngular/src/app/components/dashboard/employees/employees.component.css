@@ -1,29 +1,92 @@
+.body {
+  background-color: #f2f3f3;
+  }
+
+/* Estilos para la barra de navegación */
+.navbar-custom {
+  height: 100px; /* Ajusta la altura según tus preferencias */
+}
+.navbar {
+  background-color: #fde99e40!important
+}
+
+.shadow {
+  box-shadow: var(--bs-box-shadow)!important;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+  color: black;
+}
+
+/* Cambia el color de fondo del enlace activo */
+.navbar-custom .navbar-nav .nav-link.active {
+  color: black; /* Texto en el enlace activo en blanco */
+}
+
+
 .titulo {
     display: flex;
     justify-content: center;
     font-weight: 500;
-    font-size: 34px;
-    margin-top: 50px;
-}
-
-.body {
-background-color: #f2f3f3;
+    font-size: 50px;
+    margin-top: 40px;
+    font-family: 'Fira Sans Extra Condensed', sans-serif;
+    font-weight: 500;
 }
 
 table {
     width: 100%;
   }
-  
 
+.mat-mdc-header-cell{
+  font-size: 18px;
+  font-weight: 500px;
+}
+
+.mat-mdc-cell{
+  font-size: 15px;
+}
+  
 .mat-mdc-form-field {
     font-size: 14px;
     width: 100%;
   }
+ 
 
-  .footer {
-    margin-top: 20px;
-    text-align: center;
-    padding: 10px;
+  .insert-button{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  
+/* Estilos base del botón */
+.custom-button {
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-right: 30px;
+}
+
+/* Estilos al pasar el mouse sobre el botón */
+.custom-button:hover {
+  transform: translateY(-3px); /* Efecto de elevación al pasar el mouse */
+}
+
+/* Estilos cuando se hace clic en el botón */
+.custom-button:active {
+  background-color: #217dbb;
+  transform: translateY(0); /* Vuelve a la posición original al hacer clic */
+}
+
+/* Estilos base para los botones */
+button {
+  /* Agrega la animación de escala */
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.2); /* Efecto de escala al pasar el mouse */
 }
 
 /* FOOTER */
@@ -48,6 +111,6 @@ table {
 
 .footer i.fa {
   margin: 0 10px; /* Ajusta el espacio horizontal entre los íconos */
-  font-size: 24px; /* Ajusta el tamaño de los íconos */
+  font-size: 29px; /* Ajusta el tamaño de los íconos */
   color: black; /* Cambia el color de los íconos a negro */
 }
