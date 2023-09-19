@@ -55,6 +55,8 @@
     <Compile Include="ILogic.cs" />
     <Compile Include="OrdersLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\ValidationUtilities.cs" />
+    <Compile Include="Validators\EmployeeValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Practica3.EF.Data\Practica3.EF.Data.csproj">

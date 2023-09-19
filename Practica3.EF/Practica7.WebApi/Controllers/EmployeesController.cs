@@ -26,7 +26,7 @@ namespace Practica7.WebApi.Controllers
 
             catch (Exception ex)
             {
-                return Content(HttpStatusCode.BadRequest, new { status = 404, message = ex.Message });
+                return Content(HttpStatusCode.BadRequest, new { status = 404, data =(object)null, error = ex.Message });
 
             }
 
@@ -41,17 +41,17 @@ namespace Practica7.WebApi.Controllers
                 EmployeesLogic customerLogic = new EmployeesLogic();
                 var employee = customerLogic.GetById(id);
 
-                return Content(HttpStatusCode.OK, new { status = 200, employee });
+                return Content(HttpStatusCode.OK, new { status = 200, data = employee, error = (object)null });
             }
 
             catch (InvalidOperationException ex)
             {
-                return Content(HttpStatusCode.NotFound, new { status = 404, message = ex.Message });
+                return Content(HttpStatusCode.NotFound, new { status = 404, data = (object)null, error = ex.Message });
             }
 
             catch (Exception ex)
             {
-                return Content(HttpStatusCode.InternalServerError, new { status = 500, message = ex.Message });
+                return Content(HttpStatusCode.InternalServerError, new { status = 500, data = (object)null, error = ex.Message });
             }
         }
 
@@ -64,15 +64,15 @@ namespace Practica7.WebApi.Controllers
                 EmployeesLogic employeesLogic = new EmployeesLogic();
                 var insertedEmployee = employeesLogic.Insert(employeesDto);
 
-                return Content(HttpStatusCode.Created, new { status = 201, message = "Employee created successfully", employee = insertedEmployee });
+                return Content(HttpStatusCode.Created, new { status = 201, data = insertedEmployee, error = (object)null });
             }
             catch (ArgumentException ex)
             {
-                return Content(HttpStatusCode.BadRequest, new { status = 400, message = ex.Message });
+                return Content(HttpStatusCode.BadRequest, new { status = 400, data = (object)null, error = ex.Message });
             }
             catch (Exception ex)
             {
-                return Content(HttpStatusCode.InternalServerError, new { status = 500, message = ex.Message });
+                return Content(HttpStatusCode.InternalServerError, new { status = 500, data = (object)null, error = ex.Message });
             }
         }
 
@@ -88,19 +88,19 @@ namespace Practica7.WebApi.Controllers
                 EmployeesLogic employeesLogic = new EmployeesLogic();
                 var updatedEmployee = employeesLogic.Update(employeesDto);
 
-                return Content(HttpStatusCode.OK, new { status = 200, message = "Employee updated successfully", employee = updatedEmployee });
+                return Content(HttpStatusCode.OK, new { status = 200, data = updatedEmployee, error = (object)null });
             }
             catch (InvalidOperationException ex)
             {
-                return Content(HttpStatusCode.NotFound, new { status = 404, message = ex.Message });
+                return Content(HttpStatusCode.NotFound, new { status = 404, data = (object)null, error = ex.Message });
             }
             catch (ArgumentException ex)
             {
-                return Content(HttpStatusCode.BadRequest, new { status = 400, message = ex.Message });
+                return Content(HttpStatusCode.BadRequest, new { status = 400, data = (object)null, error = ex.Message });
             }
             catch (Exception ex)
             {
-                return Content(HttpStatusCode.InternalServerError, new { status = 500, message = ex.Message });
+                return Content(HttpStatusCode.InternalServerError, new { status = 500, data = (object)null, error = ex.Message });
             }
         }
 
@@ -113,16 +113,16 @@ namespace Practica7.WebApi.Controllers
                 EmployeesLogic employeesLogic = new EmployeesLogic();
                 employeesLogic.Delete(id);
 
-                return Content(HttpStatusCode.OK, new { status = 200, message = $"Employee with ID {id}, successfully deleted" });
+                return Content(HttpStatusCode.OK, new { status = 200, data = (object)null, error = (object)null });
 
             }
             catch (InvalidOperationException ex)
             {
-                return Content(HttpStatusCode.NotFound, new { status = 404, ex.Message });
+                return Content(HttpStatusCode.NotFound, new { status = 404, data = (object)null, error = ex.Message });
             }
             catch(Exception ex)
             {
-                return Content(HttpStatusCode.InternalServerError, new {  status= 500, message = ex.Message });
+                return Content(HttpStatusCode.InternalServerError, new { status = 500, data = (object)null, error = ex.Message });
             }
 
         }

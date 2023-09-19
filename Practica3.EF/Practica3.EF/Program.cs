@@ -1,12 +1,10 @@
 ﻿using Practica3.EF.Entities;
 using Practica3.EF.Logic;
 using Practica3.EF.Logic.DTO;
+using Practica3.EF.Logic.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Practica3.EF
 {
@@ -25,7 +23,6 @@ namespace Practica3.EF
                 Console.WriteLine("4. Update Employee");
                 Console.WriteLine("5. Delete Employee");
                 Console.WriteLine("6. To exit");
-
 
                 if (int.TryParse(Console.ReadLine(), out int choice))
                 {
@@ -62,16 +59,17 @@ namespace Practica3.EF
                                 Console.Write("Enter Employee Country: ");
                                 string country = Console.ReadLine();
 
-
                                 var newEmployeeDto = new EmployeesDto
                                 {
                                     FirstName = firstName,
                                     LastName = lastName,
                                     Country = country,
                                 };
-                                EmployeesLogic employeesLogic = new EmployeesLogic();
-                                employeesLogic.Validate(newEmployeeDto);
 
+                                EmployeeValidator employeeValidator = new EmployeeValidator(); // Crea una instancia del validador
+                                List<string> validationErrors = employeeValidator.Validate(newEmployeeDto);
+
+                                EmployeesLogic employeesLogic = new EmployeesLogic();
                                 EmployeesDto insertedEmployee = employeesILogic.Insert(newEmployeeDto);
                                 Console.WriteLine("Employee inserted successfully.");
                                 Console.WriteLine($"ID: {insertedEmployee.Id} - Name and Surname: {insertedEmployee.LastName} {insertedEmployee.FirstName} - Country: {insertedEmployee.Country}");
@@ -81,7 +79,6 @@ namespace Practica3.EF
                             {
                                 Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
                             }
-                  
                             catch (Exception ex)
                             {
                                 Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
@@ -89,7 +86,7 @@ namespace Practica3.EF
                             break;
 
                         case 4:
-                            int employeeId = 0;//Creo variable int ID Para poder arrojar una excepcion si el id ingresado no existe, sigo pensando como mejorar esto
+                            int employeeId = 0;
 
                             try
                             {
@@ -102,23 +99,23 @@ namespace Practica3.EF
                                 {
                                     Console.WriteLine($"Employee with ID {employeeId} not found.");
                                     break;
-                                }//no me convence esta validacion acá
+                                }
 
                                 Console.Write("Enter updated Employee First Name: ");
-                                string firstName = Console.ReadLine();
+                                string updatedFirstName = Console.ReadLine();
 
                                 Console.Write("Enter updated Employee Last Name: ");
-                                string lastName = Console.ReadLine();
+                                string updatedLastName = Console.ReadLine();
 
                                 Console.Write("Enter updated Employee Country: ");
-                                string country = Console.ReadLine();
+                                string updatedCountry = Console.ReadLine();
 
-                                existingEmployee.FirstName = firstName;
-                                existingEmployee.LastName = lastName;
-                                existingEmployee.Country = country;
+                                existingEmployee.FirstName = updatedFirstName;
+                                existingEmployee.LastName = updatedLastName;
+                                existingEmployee.Country = updatedCountry;
 
-                                EmployeesLogic employeesLogic = new EmployeesLogic();
-                                employeesLogic.Validate(existingEmployee);
+                                EmployeeValidator employeeValidator = new EmployeeValidator(); // Crea una instancia del validador
+                                List<string> validationErrors = employeeValidator.Validate(existingEmployee);
 
                                 employeesILogic.Update(existingEmployee);
 
@@ -126,17 +123,15 @@ namespace Practica3.EF
                             }
                             catch (FormatException)
                             {
-                                Console.WriteLine($"Invalid input. Sorry but de Id you provide is not a valid Employee ID.");
+                                Console.WriteLine($"Invalid input. Sorry but the ID you provided is not a valid Employee ID.");
                             }
-
                             catch (ArgumentException ex)
                             {
                                 Console.WriteLine($"Error: ({ex.GetType().Name}): {ex.Message}");
                             }
-
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"An error occurred while deleting the employee: {ex.Message}");
+                                Console.WriteLine($"An error occurred while updating the employee: {ex.Message}");
                             }
                             break;
 
@@ -151,7 +146,7 @@ namespace Practica3.EF
                             }
                             catch (FormatException)
                             {
-                                Console.WriteLine($"Invalid input. Sorry but de Id you provide is not a valid Employee ID.");
+                                Console.WriteLine($"Invalid input. Sorry but the ID you provided is not a valid Employee ID.");
                             }
                             catch (ArgumentException ex)
                             {
@@ -162,7 +157,7 @@ namespace Practica3.EF
                                 Console.WriteLine($"An error occurred while deleting the employee: {ex.Message}");
                             }
                             break;
-                            
+
                         case 6:
                             Console.WriteLine("Exiting the program...");
                             return;
@@ -181,4 +176,5 @@ namespace Practica3.EF
             }
         }
     }
-} 
+}
+   

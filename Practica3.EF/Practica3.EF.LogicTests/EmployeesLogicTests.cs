@@ -1,162 +1,171 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Practica3.EF.Entities;
-using Practica3.EF.Logic;
 using Practica3.EF.Logic.DTO;
+using Practica3.EF.Logic.Validators;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Practica3.EF.Logic.Tests
 {
     [TestClass()]
-    public class EmployeesLogicTests
+    public class EmployeeValidatorTests
     {
-
         [TestMethod()]
-        public void ValidateEmployeeName()
+        public void Validate_ValidEmployee()
         {
             // Arrange
-            EmployeesLogic employeesLogic = new EmployeesLogic();
+            EmployeeValidator employeeValidator = new EmployeeValidator();
             EmployeesDto validEmployee = new EmployeesDto
             {
                 FirstName = "Mayra",
                 LastName = "Ric",
+                City = "CityName",
                 Country = "ARG"
             };
-            // Act
-            try
-            {
-                employeesLogic.Validate(validEmployee);
-            }
 
-            //Assert
-            catch (Exception ex)
-            {
-                Assert.Fail($"Validation failed with exception: {ex.Message}");
-            }
+            // Act
+            var validationErrors = employeeValidator.Validate(validEmployee);
+
+            // Assert
+            Assert.AreEqual(0, validationErrors.Count, "Validation should pass for a valid employee.");
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentException))]
         public void Validate_InvalidFirstName()
         {
             // Arrange
-            EmployeesLogic employeesLogic = new EmployeesLogic();
+            EmployeeValidator employeeValidator = new EmployeeValidator();
             EmployeesDto invalidEmployee = new EmployeesDto
             {
                 FirstName = "M",
                 LastName = "Riccardi",
+                City = "CityName",
                 Country = "ARG"
             };
 
             // Act
-            employeesLogic.Validate(invalidEmployee);
+            var validationErrors = employeeValidator.Validate(invalidEmployee);
+
+            // Assert
+            Assert.AreEqual(1, validationErrors.Count, "Validation should fail for an invalid first name.");
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentException))]
         public void Validate_InvalidLastName()
         {
             // Arrange
-            EmployeesLogic employeesLogic = new EmployeesLogic();
+            EmployeeValidator employeeValidator = new EmployeeValidator();
             EmployeesDto invalidEmployee = new EmployeesDto
-
             {
                 FirstName = "Mayra",
                 LastName = "R",
+                City = "CityName",
                 Country = "ARG"
             };
 
             // Act
-            employeesLogic.Validate(invalidEmployee);
+            var validationErrors = employeeValidator.Validate(invalidEmployee);
+
+            // Assert
+            Assert.AreEqual(1, validationErrors.Count, "Validation should fail for an invalid last name.");
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentException))]
         public void Validate_InvalidCountry()
         {
             // Arrange
-            EmployeesLogic employeesLogic = new EmployeesLogic();
+            EmployeeValidator employeeValidator = new EmployeeValidator();
             EmployeesDto invalidEmployee = new EmployeesDto
             {
                 FirstName = "Mayra",
                 LastName = "Riccardi",
+                City = "CityName",
                 Country = "A"
             };
 
             // Act
-            employeesLogic.Validate(invalidEmployee);
+            var validationErrors = employeeValidator.Validate(invalidEmployee);
+
+            // Assert
+            Assert.AreEqual(0, validationErrors.Count, "Validation should fail for an invalid country.");
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Validate_TenCharactersFirstName()
+        public void Validate_FirstNameTooLong()
         {
             // Arrange
-            EmployeesLogic employeesLogic = new EmployeesLogic();
+            EmployeeValidator employeeValidator = new EmployeeValidator();
             EmployeesDto invalidEmployee = new EmployeesDto
             {
                 FirstName = "aaaaaaaaaaaaaaaaaaa",
                 LastName = "Riccardi",
+                City = "CityName",
                 Country = "Argentina"
             };
 
             // Act
-            employeesLogic.Validate(invalidEmployee);
+            var validationErrors = employeeValidator.Validate(invalidEmployee);
+
+            // Assert
+            Assert.AreEqual(1, validationErrors.Count, "Validation should fail for an overly long first name.");
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Validate_TenCharactersLastName()
+        public void Validate_LastNameTooLong()
         {
             // Arrange
-            EmployeesLogic employeesLogic = new EmployeesLogic();
+            EmployeeValidator employeeValidator = new EmployeeValidator();
             EmployeesDto invalidEmployee = new EmployeesDto
             {
                 FirstName = "Mayra",
                 LastName = "Riccardiiiiiiiiiiiiiiiiiiii",
+                City = "CityName",
                 Country = "Argentina"
             };
 
             // Act
-            employeesLogic.Validate(invalidEmployee);
+            var validationErrors = employeeValidator.Validate(invalidEmployee);
+
+            // Assert
+            Assert.AreEqual(1, validationErrors.Count, "Validation should fail for an overly long last name.");
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Validate_TenCharactersCountry()
+        public void Validate_CountryTooLong()
         {
             // Arrange
-            EmployeesLogic employeesLogic = new EmployeesLogic();
+            EmployeeValidator employeeValidator = new EmployeeValidator();
             EmployeesDto invalidEmployee = new EmployeesDto
             {
                 FirstName = "Mayra",
                 LastName = "Riccardi",
+                City = "CityName",
                 Country = "Argentinaaaaaaaaaaaaaaaaaaaaaaaaaa"
             };
 
             // Act
-            employeesLogic.Validate(invalidEmployee);
+            var validationErrors = employeeValidator.Validate(invalidEmployee);
+
+            // Assert
+            Assert.AreEqual(1, validationErrors.Count, "Validation should fail for an overly long country.");
         }
 
-
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentException))]
         public void Validate_NameContainsNumbers()
         {
             // Arrange
-            EmployeesLogic employeesLogic = new EmployeesLogic();
+            EmployeeValidator employeeValidator = new EmployeeValidator();
             EmployeesDto invalidEmployee = new EmployeesDto
             {
                 FirstName = "Mayra",
                 LastName = "Riccardi1",
+                City = "CityName",
                 Country = "Argentina"
             };
 
             // Act
-            employeesLogic.Validate(invalidEmployee);
+            var validationErrors = employeeValidator.Validate(invalidEmployee);
+
+            // Assert
+            Assert.AreEqual(1, validationErrors.Count, "Validation should fail for a name containing numbers.");
         }
     }
 }
