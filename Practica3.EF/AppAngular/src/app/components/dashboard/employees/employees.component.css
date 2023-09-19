@@ -2,34 +2,12 @@
   background-color: #f2f3f3;
   }
 
-/* Estilos para la barra de navegación */
-.navbar-custom {
-  height: 100px; /* Ajusta la altura según tus preferencias */
-}
-.navbar {
-  background-color: #fde99e40!important
-}
-
-.shadow {
-  box-shadow: var(--bs-box-shadow)!important;
-}
-
-.navbar-custom .navbar-nav .nav-link {
-  color: black;
-}
-
-/* Cambia el color de fondo del enlace activo */
-.navbar-custom .navbar-nav .nav-link.active {
-  color: black; /* Texto en el enlace activo en blanco */
-}
-
-
 .titulo {
     display: flex;
     justify-content: center;
     font-weight: 500;
     font-size: 50px;
-    margin-top: 40px;
+    margin-top: 20px;
     font-family: 'Fira Sans Extra Condensed', sans-serif;
     font-weight: 500;
 }

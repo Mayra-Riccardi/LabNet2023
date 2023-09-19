@@ -6,8 +6,7 @@ import { EmployeesComponent } from './employees/employees.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddModalComponent } from './add-modal/add-modal.component';
 import { UpdateModalComponent } from './update-modal/update-modal.component';
-
-
+import { NavbarComponent } from '../navbar/navbar.component';
 
 
 @NgModule({
@@ -15,13 +14,14 @@ import { UpdateModalComponent } from './update-modal/update-modal.component';
     EmployeesComponent,
     AddModalComponent,
     UpdateModalComponent,
+    NavbarComponent
 
 
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class DashboardModule { }

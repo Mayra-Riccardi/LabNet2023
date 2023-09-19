@@ -11,8 +11,6 @@ import { AddModalComponent } from '../add-modal/add-modal.component';
 import { UpdateModalComponent } from '../update-modal/update-modal.component';
 
 
-
-
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
