@@ -1,4 +1,6 @@
-﻿namespace Practica3.EF.Logic.DTO
+﻿using System.Collections.Generic;
+
+namespace Practica3.EF.Logic.DTO
 {
     public class EmployeesDto
     {
