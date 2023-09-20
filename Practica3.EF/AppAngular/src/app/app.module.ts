@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { DashboardModule } from './components/dashboard/dashboard.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,7 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     LoginComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -21,8 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
-    
-
+    DashboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,46 @@
+/* Estilos para la barra de navegación */
+.navbar-custom {
+  height: 140px; /* Ajusta la altura según tus preferencias */
+}
+
+a.nav-link.active{
+  color: beige !important;
+}
+
+.navbar-nav{
+  margin-left: -203px;
+  font-size: 21px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  
+}
+
+a.nav-link{
+  color: rgb(255, 255, 255);
+}
+
+.navbar-brand{
+  color: white;
+  font-family: 'Fira Sans Extra Condensed', sans-serif;
+  font-family: 'Merienda', cursive;
+}
+.navbar {
+  background-color: #292929ed!important
+}
+
+.shadow {
+  box-shadow: var(--bs-box-shadow)!important;
+}
+
+.rounded {
+  border-radius: var(--bs-border-radius)
+}
+
+.navbar-custom .navbar-nav .nav-link {
+  color: white;
+}
+
+/* Cambia el color de fondo del enlace activo */
+.navbar-custom .navbar-nav .nav-link.active {
+  color: black; /* Texto en el enlace activo en blanco */
+}

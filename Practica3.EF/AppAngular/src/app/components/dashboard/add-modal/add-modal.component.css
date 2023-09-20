@@ -1,7 +1,6 @@
-/* Estilo para el formulario */
 .form-container {
     width: 100%;
-    max-width: 800px; /* Ajusta el ancho máximo del formulario */
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
@@ -13,12 +12,11 @@
     
   }
   
-  /* Estilo para los campos */
   .form-field {
     width: 100%;
-    max-width: 400px; /* Ajusta el ancho máximo de los campos */
+    max-width: 400px;
     margin: 0 auto;
-    margin-bottom: 20px; /* Espacio entre los campos */
+    margin-bottom: 20px;
   }
 
   .titulo {
@@ -28,12 +26,12 @@
     font-size: 34px;
     margin-top: 30px;
     margin-bottom: 20px;
+    font-family: 'Fira Sans Extra Condensed', sans-serif;
 }
   
-  /* Estilo para el botón */
   button {
     width: 100%;
-    max-width: 200px; /* Ajusta el ancho máximo del botón */
+    max-width: 200px;
     margin: 0 auto;
   }
   
