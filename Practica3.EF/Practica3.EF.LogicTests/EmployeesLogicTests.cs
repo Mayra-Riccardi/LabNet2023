@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Practica3.EF.Logic.DTO;
 using Practica3.EF.Logic.Validators;
-using System;
 
 namespace Practica3.EF.Logic.Tests
 {
@@ -25,7 +24,7 @@ namespace Practica3.EF.Logic.Tests
             var validationErrors = employeeValidator.Validate(validEmployee);
 
             // Assert
-            Assert.AreEqual(0, validationErrors.Count, "Validation should pass for a valid employee.");
+            Assert.AreEqual(0, validationErrors.Count, "should pass for a valid employee.");
         }
 
         [TestMethod()]
@@ -45,7 +44,7 @@ namespace Practica3.EF.Logic.Tests
             var validationErrors = employeeValidator.Validate(invalidEmployee);
 
             // Assert
-            Assert.AreEqual(1, validationErrors.Count, "Validation should fail for an invalid first name.");
+            Assert.AreEqual(1, validationErrors.Count, "should fail for an invalid first name.");
         }
 
         [TestMethod()]
@@ -65,7 +64,7 @@ namespace Practica3.EF.Logic.Tests
             var validationErrors = employeeValidator.Validate(invalidEmployee);
 
             // Assert
-            Assert.AreEqual(1, validationErrors.Count, "Validation should fail for an invalid last name.");
+            Assert.AreEqual(1, validationErrors.Count, "should fail for an invalid last name.");
         }
 
         [TestMethod()]
@@ -85,7 +84,7 @@ namespace Practica3.EF.Logic.Tests
             var validationErrors = employeeValidator.Validate(invalidEmployee);
 
             // Assert
-            Assert.AreEqual(0, validationErrors.Count, "Validation should fail for an invalid country.");
+            Assert.AreEqual(1, validationErrors.Count, "should send error for an invalid country.");
         }
 
         [TestMethod()]
@@ -105,7 +104,7 @@ namespace Practica3.EF.Logic.Tests
             var validationErrors = employeeValidator.Validate(invalidEmployee);
 
             // Assert
-            Assert.AreEqual(1, validationErrors.Count, "Validation should fail for an overly long first name.");
+            Assert.AreEqual(1, validationErrors.Count, "should fail for an first name long.");
         }
 
         [TestMethod()]
@@ -125,7 +124,7 @@ namespace Practica3.EF.Logic.Tests
             var validationErrors = employeeValidator.Validate(invalidEmployee);
 
             // Assert
-            Assert.AreEqual(1, validationErrors.Count, "Validation should fail for an overly long last name.");
+            Assert.AreEqual(1, validationErrors.Count, "should fail for an last name long.");
         }
 
         [TestMethod()]
@@ -145,11 +144,11 @@ namespace Practica3.EF.Logic.Tests
             var validationErrors = employeeValidator.Validate(invalidEmployee);
 
             // Assert
-            Assert.AreEqual(1, validationErrors.Count, "Validation should fail for an overly long country.");
+            Assert.AreEqual(1, validationErrors.Count, "should fail for an country long.");
         }
 
         [TestMethod()]
-        public void Validate_NameContainsNumbers()
+        public void Validate_LastnameContainsNumbers()
         {
             // Arrange
             EmployeeValidator employeeValidator = new EmployeeValidator();
@@ -165,7 +164,7 @@ namespace Practica3.EF.Logic.Tests
             var validationErrors = employeeValidator.Validate(invalidEmployee);
 
             // Assert
-            Assert.AreEqual(1, validationErrors.Count, "Validation should fail for a name containing numbers.");
+            Assert.AreEqual(1, validationErrors.Count, "should fail for a laatname containing numbers.");
         }
     }
 }

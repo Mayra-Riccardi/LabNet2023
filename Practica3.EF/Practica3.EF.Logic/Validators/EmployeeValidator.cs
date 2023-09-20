@@ -1,5 +1,6 @@
 ﻿using Practica3.EF.Logic.DTO;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Practica3.EF.Logic.Validators
 {
@@ -13,15 +14,15 @@ namespace Practica3.EF.Logic.Validators
             {
                 validationErrors.Add("First name, last name, City, and country are required.");
             }
-            if (employeeDto.FirstName.Length < 3 & employeeDto.FirstName.Length > 0 || employeeDto.LastName.Length < 3 & employeeDto.LastName.Length > 0 || employeeDto.City.Length < 3 & employeeDto.City.Length > 0)
+            if (employeeDto.FirstName.Length < 3 || employeeDto.LastName.Length < 3 || employeeDto.City.Length < 3)
             {
                 validationErrors.Add("First name, last name and city require at least 3 characters.");
             }
-            if (employeeDto.Country.Length < 2 & employeeDto.Country.Length > 0)
+            if (employeeDto.Country.Length < 2)
             {
                 validationErrors.Add("Country require at least 2 characters.");
             }
-            if (employeeDto.FirstName.Length > 10 || employeeDto.LastName.Length > 15 || employeeDto.City.Length > 15 || employeeDto.Country.Length > 15)
+            if (employeeDto.FirstName.Length > 15 || employeeDto.LastName.Length > 15 || employeeDto.City.Length > 15 || employeeDto.Country.Length > 15)
             {
                 validationErrors.Add("First name, last name, city and country can't exceed 15 characters.");
             }
