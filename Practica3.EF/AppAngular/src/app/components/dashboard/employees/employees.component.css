@@ -1,5 +1,8 @@
-.body {
+html .body {
   background-color: #f2f3f3;
+  margin: 0;
+  padding: 0;
+  height: 100%;
   }
 
 .titulo {
@@ -12,32 +15,26 @@
     font-weight: 500;
 }
 
+/*TABLA*/
 table {
     width: 100%;
   }
-
 .mat-mdc-header-cell{
   font-size: 18px;
   font-weight: 500px;
 }
-
 .mat-mdc-cell{
   font-size: 15px;
 }
-  
 .mat-mdc-form-field {
     font-size: 14px;
     width: 100%;
   }
- 
-
   .insert-button{
     display: flex;
     justify-content: center;
     margin-top: 50px;
   }
-  
-/* Estilos base del botón */
 .custom-button {
   border-radius: 5px;
   font-size: 13px;
@@ -46,49 +43,34 @@ table {
   margin-right: 30px;
 }
 
-/* Estilos al pasar el mouse sobre el botón */
+/* Animaciones */
 .custom-button:hover {
-  transform: translateY(-3px); /* Efecto de elevación al pasar el mouse */
+  transform: translateY(-3px);
 }
 
 /* Estilos cuando se hace clic en el botón */
 .custom-button:active {
   background-color: #217dbb;
-  transform: translateY(0); /* Vuelve a la posición original al hacer clic */
+  transform: translateY(0);
 }
 
-/* Estilos base para los botones */
 button {
-  /* Agrega la animación de escala */
   transition: transform 0.2s;
 }
 
 button:hover {
-  transform: scale(1.2); /* Efecto de escala al pasar el mouse */
+  transform: scale(1.2);
 }
 
-/* FOOTER */
-.footer {
-  margin-top: 20px;
-  text-align: center;
-  padding: 10px;
+/*SPINNER*/
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-.footer hr {
-  border-color: #a19b9b;
-}
-
-.footer p {
-  font-size: 12px;
-  color: #888;
-}
-
-
-/* styles.css o styles.scss */
-@import "~font-awesome/css/font-awesome.css";
-
-.footer i.fa {
-  margin: 0 10px; /* Ajusta el espacio horizontal entre los íconos */
-  font-size: 29px; /* Ajusta el tamaño de los íconos */
-  color: black; /* Cambia el color de los íconos a negro */
+.spinner-container mat-progress-spinner {
+  width: 20px;
+  height: 20px;
 }

@@ -34,8 +34,7 @@ export class UpdateModalComponent implements OnInit {
   onSubmit() {
     if (this.employeeForm.valid) {
       const formData = { ...this.employeeForm.value, Id: this.data.Id };
-      console.log(formData);
-      // Emite los datos del formulario para que el componente principal los maneje
+      // Emite los datos del formulario para que el componente principal los mneje
 
       Swal.fire({
         title: 'Are you sure?',
@@ -52,7 +51,6 @@ export class UpdateModalComponent implements OnInit {
                 duration: 2000,
                 panelClass: ['mat-toolbar', 'mat-primary'],
               });
-              console.log('Empleado actualizado ', result);
               this.dialogRef.close('updated');
             },
             error: (errorResponse) => {

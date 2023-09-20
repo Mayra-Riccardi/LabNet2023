@@ -25,7 +25,7 @@ export class LoginComponent {
     const password = this.formLogin.value.password;
 
     if(userName == "admin" && password == "admin"){
-      this.router.navigate(["dashboard"])
+      this.router.navigate(["home"])
      }
      else {
       this.errorMessage()
@@ -42,7 +42,4 @@ export class LoginComponent {
       verticalPosition: "bottom",
     });
   }
-
 }
-
-

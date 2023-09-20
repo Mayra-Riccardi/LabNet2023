@@ -3,7 +3,7 @@
     <br />
     <h1 class="titulo">Employees Table</h1>
 
-    <div style="margin: 50px; margin-top: 10px;">
+    <div style="margin: 50px; margin-top: 10px;" [hidden]="loading">
         <!-- Filtrado -->
         <button mat-raised-button color="primary" class="custom-button" (click)="insert()">
             <mat-icon>add</mat-icon> Insert New Employee
@@ -14,7 +14,6 @@
         </mat-form-field>
 
         <div class="mat-elevation-z8">
-
             <table mat-table [dataSource]="dataSource" matSort>
                 <!-- LastName Column -->
                 <ng-container matColumnDef="LastName">
@@ -68,20 +67,9 @@
             </table>
             <mat-paginator [pageSizeOptions]="[5, 10, 25]" aria-label="Select page of users"></mat-paginator>
         </div>
-
+</div>
+<div class="spinner-container" *ngIf="loading">
+    <mat-progress-spinner diameter="60" mode="indeterminate"></mat-progress-spinner>
     </div>
-</div>
 
-<div class="footer">
-    <hr>
-    <p>Todos los derechos reservados &copy; Mayra Riccardi</p>
-    <p>Lab Practica 9</p>
-    <!-- Ícono de GitHub -->
-    <a href="https://github.com/Mayra-Riccardi" target="_blank">
-        <i class="fa fa-github"></i>
-    </a>
-    <!-- Ícono de LinkedIn -->
-    <a href="https://www.linkedin.com/in/tu-perfil-en-linkedin" target="_blank">
-        <i class="fa fa-linkedin"></i>
-    </a>
-</div>
+<app-footer></app-footer>>

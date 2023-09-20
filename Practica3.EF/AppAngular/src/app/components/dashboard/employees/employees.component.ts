@@ -30,6 +30,8 @@ export class EmployeesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  loading: boolean = true;
+
   constructor(
     private _employeeService: EmployeeService,
     private router: Router,
@@ -79,14 +81,15 @@ update(Id: number) {
   });
 }
 
-
   //GetALL
   getAllEmployees() {
     this._employeeService.getAllEmployees().subscribe({
       next: (result) => {
         this.dataSource.data = result;
+        this.loading = false;
       },
       error: (e) => {
+        this.loading = false;
         console.error('Somethig wrong', e);
       },
     });

@@ -14,7 +14,6 @@ import Swal from 'sweetalert2';
 export class AddModalComponent implements OnInit {
   public employeeForm: FormGroup;
 
-    // Declaración del evento de salida
     @Output() employeeAdded = new EventEmitter<any>();
 
   constructor(

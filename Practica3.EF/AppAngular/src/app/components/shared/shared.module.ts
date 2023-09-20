@@ -12,6 +12,7 @@ import {MatTableModule} from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [],
@@ -28,6 +29,7 @@ import {MatSortModule} from '@angular/material/sort';
     MatDialogModule,
     MatPaginatorModule,
     MatSortModule,
+    MatProgressSpinnerModule,
 
   ],
   exports: [
@@ -42,7 +44,8 @@ import {MatSortModule} from '@angular/material/sort';
     MatTableModule,
     MatDialogModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
 })
 export class SharedModule { }
