@@ -68,17 +68,17 @@ export class EmployeesComponent implements OnInit {
 
 //FUNCION UPDATE PARA MODAL
 update(Id: number) {
-  console.log('me llega el usuario con el id', Id);
-  const dialogRef = this.dialog.open(UpdateModalComponent, {
-    width: '500px',
-    data: { Id },
-  });
-
+  this._employeeService.getEmployeeById(Id).subscribe((employeeData) => {
+    const dialogRef = this.dialog.open(UpdateModalComponent, {
+      width: '500px',
+      data: employeeData,
+    });
   dialogRef.afterClosed().subscribe((result) => {
     if (result === 'updated') {
       this.getAllEmployees();
     }
   });
+})
 }
 
   //GetALL

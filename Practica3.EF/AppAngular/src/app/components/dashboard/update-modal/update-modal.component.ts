@@ -3,7 +3,7 @@ import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { EmployeeService } from '../../service/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog'; //Para traerme la data que pase por paramsal modal, sino me lo tomaba null
+import { MAT_DIALOG_DATA } from '@angular/material/dialog'; //Para traerme la data que pase por paramsal modal/IMPORTANTE!! injection token that can be used to access the data that was passed in to a dialog
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,10 +22,18 @@ export class UpdateModalComponent implements OnInit {
     private dialogRef: MatDialogRef<UpdateModalComponent>
   ) {
     this.employeeForm = this.formBuilder.group({
-      LastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15), Validators.pattern('[a-zA-Z ]*'),]),
-      FirstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15), Validators.pattern('[a-zA-Z ]*'),]),
-      City: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(15), Validators.pattern('[a-zA-Z ]*'),]),
-      Country: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15), Validators.pattern('[a-zA-Z ]*'),]),
+      LastName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10), Validators.pattern('[a-zA-Z ]*'),]),
+      FirstName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10), Validators.pattern('[a-zA-Z ]*'),]),
+      City: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10), Validators.pattern('[a-zA-Z ]*'),]),
+      Country: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(10), Validators.pattern('[a-zA-Z ]*'),]),
+    });
+
+    const employeeData = this.data.data
+    this.employeeForm.patchValue({
+      LastName: employeeData.LastName,
+      FirstName: employeeData.FirstName,
+      City: employeeData.City,
+      Country: employeeData.Country,
     });
   }
 
@@ -33,7 +41,7 @@ export class UpdateModalComponent implements OnInit {
 
   onSubmit() {
     if (this.employeeForm.valid) {
-      const formData = { ...this.employeeForm.value, Id: this.data.Id };
+      const formData = { ...this.employeeForm.value, Id: this.data.data.Id };
       // Emite los datos del formulario para que el componente principal los mneje
 
       Swal.fire({
