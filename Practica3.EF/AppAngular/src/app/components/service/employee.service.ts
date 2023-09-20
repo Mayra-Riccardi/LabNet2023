@@ -19,7 +19,7 @@ export class EmployeeService {
   }
 
   getEmployeeById(Id: number): Observable<Employees> {
-    const url = `${this.apiUrl}/employees/${Id}`; // Reemplaza 'employees' con la ruta correcta en tu API
+    const url = `${this.apiUrl}/${Id}`;
     return this.http.get<Employees>(url);
   }
 
