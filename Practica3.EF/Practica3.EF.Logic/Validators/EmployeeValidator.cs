@@ -21,9 +21,13 @@ namespace Practica3.EF.Logic.Validators
             {
                 validationErrors.Add("Country require at least 2 characters.");
             }
-            if (employeeDto.FirstName.Length > 10 || employeeDto.LastName.Length > 10 || employeeDto.City.Length > 10 || employeeDto.Country.Length > 10)
+            if (employeeDto.FirstName.Length > 10 || employeeDto.LastName.Length > 10 || employeeDto.Country.Length > 10)
             {
-                validationErrors.Add("First name, last name, city and country can't exceed 10 characters.");
+                validationErrors.Add("First name, last name and country can't exceed 10 characters.");
+            }
+            if(employeeDto.City.Length > 15)
+            {
+                validationErrors.Add("City can´t exceed 15 characters");
             }
             if (FindNumbers(employeeDto.FirstName) || FindNumbers(employeeDto.LastName) || FindNumbers(employeeDto.City) || FindNumbers(employeeDto.Country))
             {
