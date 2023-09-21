@@ -19,7 +19,7 @@
   <div class="form-field">
     <mat-form-field>
       <input matInput formControlName="City" placeholder="City" required>
-      <mat-error *ngIf="employeeForm.get('City')?.hasError('maxlength')">City cannot exceed 10 characters.</mat-error>
+      <mat-error *ngIf="employeeForm.get('City')?.hasError('maxlength')">City cannot exceed 15 characters.</mat-error>
       <mat-error *ngIf="employeeForm.get('City')?.hasError('minlength')">City must have at least 3 characters.</mat-error>
       <mat-error *ngIf="employeeForm.get('City')?.hasError('pattern')">City cannot contain numbers.</mat-error>
     </mat-form-field>
